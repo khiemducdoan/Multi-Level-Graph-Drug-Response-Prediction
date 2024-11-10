@@ -1,4 +1,4 @@
-name: graphdrp_py37_improve
+name: graphdrp
 channels:
   - rdkit
   - pyg
