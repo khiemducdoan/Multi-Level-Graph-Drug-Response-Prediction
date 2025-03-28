@@ -10,12 +10,6 @@
 # source ./setup_improve.sh
 # ======================================================================
 
-# Download CSA data (if needed)
-# data_dir="csa_data"
-# if [ ! -d $PWD/$data_dir/ ]; then
-#     echo "Download CSA data"
-#     source download_csa.sh
-# fi
 DATA_DIR="repurposing_data"
 
 # Params
@@ -29,7 +23,6 @@ SPLIT=0
 EPOCHS=50
 # EPOCHS=500
 
-# CUDA_NAME=cuda:7
 CUDA=7
 
 # This script abs path
@@ -44,7 +37,6 @@ MODEL_DIR=$gout/train/split_${SPLIT}
 INFER_DIR=$gout/infer/split_${SPLIT}
 
 # Preprocess
-# python ${model_name}_preprocess_improve.py \
 CUDA_VISIBLE_DEVICES=${CUDA} \
     python ${MODEL_NAME}_preprocess_improve.py \
     --train_split_file ${SPLIT}_train.txt \
@@ -54,16 +46,13 @@ CUDA_VISIBLE_DEVICES=${CUDA} \
     --output_dir $ML_DATA_DIR
 
 # Train
-# python ${model_name}_train_improve.py \
 CUDA_VISIBLE_DEVICES=${CUDA} \
     python ${MODEL_NAME}_train_improve.py \
     --input_dir $ML_DATA_DIR \
     --output_dir $MODEL_DIR \
     --epochs $EPOCHS
-    # --cuda_name $CUDA_NAME \
 
 # Infer
-# python ${model_name}_infer_improve.py \
 CUDA_VISIBLE_DEVICES=${CUDA} \
     python ${MODEL_NAME}_infer_improve.py \
     --input_data_dir $ML_DATA_DIR\
@@ -71,4 +60,3 @@ CUDA_VISIBLE_DEVICES=${CUDA} \
     --output_dir $INFER_DIR \
     --calc_infer_score false
     # --calc_infer_score true
-    # --cuda_name $CUDA_NAME \
