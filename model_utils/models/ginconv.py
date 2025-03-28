@@ -7,8 +7,17 @@ from torch_geometric.nn import global_mean_pool as gap, global_max_pool as gmp
 
 # GINConv model
 class GINConvNet(torch.nn.Module):
-    def __init__(self, n_output=1, num_features_xd=78, num_features_xt=25,
-                 n_filters=32, embed_dim=128, output_dim=128, dropout=0.2):
+    def __init__(
+        self,
+        n_output=1,
+        num_features_xd=78,
+        num_features_xt=25,
+        n_filters=32,
+        embed_dim=128,
+        output_dim=128,
+        dropout=0.2,
+        num_genes=942
+    ):
 
         super(GINConvNet, self).__init__()
 
@@ -43,7 +52,7 @@ class GINConvNet(torch.nn.Module):
 
         # 1D convolution on protein sequence
         self.embedding_xt = nn.Embedding(num_features_xt + 1, embed_dim)
-        self.conv_xt_1 = nn.Conv1d(in_channels=1000, out_channels=n_filters, kernel_size=8)
+        self.conv_xt_1 = nn.Conv1d(in_channels=1000, out_channels=n_filters, kernel_size=8) # Note! This is overwritten by the next line (unchanged from the original paper implementation)
 
         # cell line feature
         self.conv_xt_1 = nn.Conv1d(in_channels=1, out_channels=n_filters, kernel_size=8)
@@ -53,13 +62,34 @@ class GINConvNet(torch.nn.Module):
         self.conv_xt_3 = nn.Conv1d(in_channels=n_filters*2, out_channels=n_filters*4, kernel_size=8)
         self.pool_xt_3 = nn.MaxPool1d(3)
 
-        # (ap) Determine in_dim
+        # (ap) Determine in_dim (Option 1: hard-code)
         # breakpoint()
-        # TODO:
         # Need to determine in_dim in __init__() and then use this info in forward()
         # self.in_dim = 2944 # original GraphDRP data
         # self.in_dim = 3968 # July2020 data
-        self.in_dim = 4096 # New benchmark CSA data
+        # self.in_dim = 4096 # New benchmark CSA data
+
+        # (ap) Determine in_dim (Option 2: determine dynamically)
+        # Compute in_dim dynamically using a dummy forward pass
+        # breakpoint()
+        with torch.no_grad():
+            dummy_target = torch.zeros(1, 1, num_genes)
+            dummy_target = dummy_target.to(next(self.parameters()).device)  # Move to correct device
+
+            conv_xt = self.conv_xt_1(dummy_target)
+            conv_xt = F.relu(conv_xt)
+            conv_xt = self.pool_xt_1(conv_xt)
+
+            conv_xt = self.conv_xt_2(conv_xt)
+            conv_xt = F.relu(conv_xt)
+            conv_xt = self.pool_xt_2(conv_xt)
+
+            conv_xt = self.conv_xt_3(conv_xt)
+            conv_xt = F.relu(conv_xt)
+            conv_xt = self.pool_xt_3(conv_xt)
+
+            self.in_dim = conv_xt.shape[1] * conv_xt.shape[2] # Dynamically determined
+
         self.fc1_xt = nn.Linear(self.in_dim, output_dim)
         # self.fc1_xt = nn.Linear(3968, output_dim)
 
@@ -109,10 +139,10 @@ class GINConvNet(torch.nn.Module):
         
         # flatten
         # breakpoint()
-        # TODO:
-        in_dim = conv_xt.shape[1] * conv_xt.shape[2]  # TODO: in_dim should be hard-coded in self.in_dim = ...
-        # xt = conv_xt.view(-1, conv_xt.shape[1] * conv_xt.shape[2])
-        xt = conv_xt.view(-1, in_dim)
+        # Note!
+        # Parameter in_dim should be determined in __init__ and defined in self.in_dim 
+        # in_dim = conv_xt.shape[1] * conv_xt.shape[2]  # this won't work
+        xt = conv_xt.view(-1, self.in_dim)
         xt = self.fc1_xt(xt)  # error here??
         # dense_layer = nn.Linear(in_dim, self.output_dim)
         # xt = dense_layer(xt)
