@@ -99,7 +99,13 @@ def run(params: Dict):
 
     # Prep molecular graph data for GraphDRP
     smi = smi.reset_index()
-    smi.columns = [params["drug_col_name"], "SMILES"]
+    # smi.columns = [params["drug_col_name"], "SMILES"]
+    if 'SMILES' in smi.columns:
+        smi = smi[[smi.columns[0], "SMILES"]]
+        smi.columns = [params["drug_col_name"], 'SMILES']
+    else:
+        smi = smi.iloc[:, :2]
+        smi.columns = [params["drug_col_name"], 'SMILES']
     drug_smiles = smi["SMILES"].values  # list of smiles
     smiles_graphs = build_graph_dict_from_smiles_collection(drug_smiles)
 
