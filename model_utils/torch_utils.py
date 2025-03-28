@@ -13,6 +13,13 @@ from .models.gat_gcn import GAT_GCN
 from .models.gcn import GCNNet
 from .models.ginconv import GINConvNet
 
+MODEL_REGISTRY = {
+    "GATNet": GATNet,
+    "GAT_GCN": GAT_GCN,
+    "GCNNet": GCNNet,
+    "GINConvNet": GINConvNet
+}
+
 
 class TestbedDataset(InMemoryDataset):
     def __init__(self,
@@ -217,7 +224,18 @@ def str2Class(str):
 
 def set_GraphDRP(params, device):
     """ Chooses the specific GraphDRP architecture and moves it to device """
-    model = str2Class(params["model_arch"]).to(device)
+    # model = str2Class(params["model_arch"]).to(device) # GraphDRP IMPROVE legacy
+
+    # model_class = str2Class(params["model_arch"])
+    # if "num_genes" in params:
+    #     model = model_class(num_genes=params["num_genes"]).to(device)
+
+    model_class = MODEL_REGISTRY.get(params["model_arch"])
+    if model_class is None:
+        raise ValueError(f"Unknown model: {params['model_arch']}")
+
+    # model = model_class(**params).to(device)  # Unpack params dynamically
+    model = model_class(num_genes=params["num_genes"]).to(device)
     return model
 
 
@@ -225,7 +243,14 @@ def load_GraphDRP(params, modelpath, device):
     """ Load GraphDRP """
     if modelpath.exists() == False:
         raise Exception(f"ERROR ! modelpath not found {modelpath}\n")
-    model = str2Class(params["model_arch"]).to(device)
+
+    # model = str2Class(params["model_arch"]).to(device)
+
+    model_class = MODEL_REGISTRY.get(params["model_arch"])
+    if model_class is None:
+        raise ValueError(f"Unknown model: {params['model_arch']}")
+    model = model_class().to(device)
+
     model.load_state_dict(torch.load(modelpath))
     model.eval()
     return model
