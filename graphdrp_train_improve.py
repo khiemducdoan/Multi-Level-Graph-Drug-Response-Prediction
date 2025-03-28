@@ -117,6 +117,12 @@ def run(params: Dict) -> Dict:
         shuffle=False
     )
 
+    def determine_gene_dim(dataloader):
+        sample_data = next(iter(dataloader)) # Get first batch
+        num_genes = sample_data.target.shape[1]  # Extract num_genes
+        return num_genes
+    params["num_genes"] = determine_gene_dim(train_loader)
+
     # ------------------------------------------------------
     # CUDA/CPU device
     # ------------------------------------------------------
