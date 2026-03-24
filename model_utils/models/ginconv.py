@@ -4,7 +4,94 @@ import torch.nn.functional as F
 from torch.nn import Sequential, Linear, ReLU
 from torch_geometric.nn import GINConv, global_add_pool
 from torch_geometric.nn import global_mean_pool as gap, global_max_pool as gmp
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+from torch_geometric.nn import GCNConv, global_add_pool
 
+# class DualBranchDrugModel(nn.Module):
+#     def __init__(self, atom_in_dim, frag_in_dim, num_genes, hidden_dim=128, out_dim=1, dropout=0.2):
+#         super(DualBranchDrugModel, self).__init__()
+        
+#         # --- NHÁNH 1: ATOM GRAPH ---
+#         self.atom_conv1 = GCNConv(atom_in_dim, hidden_dim)
+#         self.atom_conv2 = GCNConv(hidden_dim, hidden_dim)
+#         self.atom_bn1 = nn.BatchNorm1d(hidden_dim)
+#         self.atom_bn2 = nn.BatchNorm1d(hidden_dim)
+        
+#         # --- NHÁNH 2: FRAGMENT GRAPH ---
+#         # Fragment thường là index từ vựng, nên ta dùng Embedding trước khi vào GNN
+#         self.frag_embedding = nn.Embedding(num_embeddings=frag_in_dim, embedding_dim=hidden_dim)
+#         self.frag_conv1 = GCNConv(hidden_dim, hidden_dim)
+#         self.frag_conv2 = GCNConv(hidden_dim, hidden_dim)
+#         self.frag_bn1 = nn.BatchNorm1d(hidden_dim)
+#         self.frag_bn2 = nn.BatchNorm1d(hidden_dim)
+        
+#         # --- NHÁNH 3: CELL LINE (Gene Expression) ---
+#         self.cell_mlp = nn.Sequential(
+#             nn.Linear(num_genes, hidden_dim),
+#             nn.ReLU(),
+#             nn.BatchNorm1d(hidden_dim),
+#             nn.Dropout(dropout),
+#             nn.Linear(hidden_dim, hidden_dim)
+#         )
+        
+#         # --- FUSION & PREDICTION ---
+#         # Tổng kích thước = Atom(128) + Fragment(128) + Cell(128) = 384
+#         fusion_dim = hidden_dim * 3 
+#         self.predictor = nn.Sequential(
+#             nn.Linear(fusion_dim, hidden_dim),
+#             nn.ReLU(),
+#             nn.Dropout(dropout),
+#             nn.Linear(hidden_dim, out_dim)
+#         )
+
+#     def forward(self, data):
+#         device = data.x.device
+        
+#         # ==========================================
+#         # 1. Atom Branch
+#         # ==========================================
+#         x, edge_index = data.x, data.edge_index
+#         h_atom = F.relu(self.atom_bn1(self.atom_conv1(x, edge_index)))
+#         h_atom = F.dropout(h_atom, p=0.2, training=self.training)
+#         h_atom = self.atom_conv2(h_atom, edge_index)
+        
+#         # Pooling: Dùng node_batch để biết node nào thuộc graph nào
+#         drug_atom_emb = global_add_pool(h_atom, data.node_batch) 
+        
+#         # ==========================================
+#         # 2. Fragment Branch
+#         # ==========================================
+#         # data.frag thường là index (LongTensor), cần Embedding trước
+#         if hasattr(data, 'frag') and data.frag is not None:
+#             frag_input = data.frag.squeeze(-1)  # [total_frags]
+#             h_frag = self.frag_embedding(frag_input)  # [total_frags, hidden_dim]
+            
+#             if hasattr(data, 'frag_edge_index') and data.frag_edge_index.numel() > 0:
+#                 h_frag = F.relu(self.frag_bn1(self.frag_conv1(h_frag, data.frag_edge_index)))
+#                 h_frag = self.frag_conv2(h_frag, data.frag_edge_index)
+            
+#             # Pooling: Dùng frag_batch (KHÔNG DÙNG node_batch)
+#             drug_frag_emb = global_add_pool(h_frag, data.frag_batch)
+#         else:
+#             # Fallback nếu không có fragment
+#             drug_frag_emb = torch.zeros_like(drug_atom_emb)
+        
+#         # ==========================================
+#         # 3. Cell Line Branch
+#         # ==========================================
+#         cell_emb = self.cell_mlp(data.target)
+        
+#         # ==========================================
+#         # 4. Fusion & Prediction
+#         # ==========================================
+#         # Concatenate 3 vector embedding theo chiều ngang
+#         combined = torch.cat([drug_atom_emb, drug_frag_emb, cell_emb], dim=1)
+        
+#         out = self.predictor(combined)
+        
+#         return out, None  # Trả về None để tương thích với code train cũ
 # GINConv model
 class GINConvNet(torch.nn.Module):
     def __init__(
@@ -16,9 +103,15 @@ class GINConvNet(torch.nn.Module):
         embed_dim=128,
         output_dim=128,
         dropout=0.2,
-        num_genes=942
+        num_genes=942,
+        in_dim=None
     ):
-
+        """
+        If loading a previously saved model, `in_dim` should be provided as an
+        input argument. This avoids the need to run a dummy forward pass inside
+        __init__ method to infer `in_dim`, ensuring consistency with the original
+        model architecture.
+        """
         super(GINConvNet, self).__init__()
 
         self.output_dim = output_dim  # ap
@@ -72,23 +165,28 @@ class GINConvNet(torch.nn.Module):
         # (ap) Determine in_dim (Option 2: determine dynamically)
         # Compute in_dim dynamically using a dummy forward pass
         # breakpoint()
-        with torch.no_grad():
-            dummy_target = torch.zeros(1, 1, num_genes)
-            dummy_target = dummy_target.to(next(self.parameters()).device)  # Move to correct device
+        if in_dim is not None:
+            # In the case when the model was previously created and saved, we
+            # don't need run the dummy forward pass to determine in_dim.
+            self.in_dim = in_dim
+        else:
+            with torch.no_grad():
+                dummy_target = torch.zeros(1, 1, num_genes)
+                dummy_target = dummy_target.to(next(self.parameters()).device) # Move to correct device
 
-            conv_xt = self.conv_xt_1(dummy_target)
-            conv_xt = F.relu(conv_xt)
-            conv_xt = self.pool_xt_1(conv_xt)
+                conv_xt = self.conv_xt_1(dummy_target)
+                conv_xt = F.relu(conv_xt)
+                conv_xt = self.pool_xt_1(conv_xt)
 
-            conv_xt = self.conv_xt_2(conv_xt)
-            conv_xt = F.relu(conv_xt)
-            conv_xt = self.pool_xt_2(conv_xt)
+                conv_xt = self.conv_xt_2(conv_xt)
+                conv_xt = F.relu(conv_xt)
+                conv_xt = self.pool_xt_2(conv_xt)
 
-            conv_xt = self.conv_xt_3(conv_xt)
-            conv_xt = F.relu(conv_xt)
-            conv_xt = self.pool_xt_3(conv_xt)
+                conv_xt = self.conv_xt_3(conv_xt)
+                conv_xt = F.relu(conv_xt)
+                conv_xt = self.pool_xt_3(conv_xt)
 
-            self.in_dim = conv_xt.shape[1] * conv_xt.shape[2] # Dynamically determined
+                self.in_dim = conv_xt.shape[1] * conv_xt.shape[2] # Dynamically determined
 
         self.fc1_xt = nn.Linear(self.in_dim, output_dim)
         # self.fc1_xt = nn.Linear(3968, output_dim)

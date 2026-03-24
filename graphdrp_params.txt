@@ -24,13 +24,13 @@ loss = mse
 early_stop_metric = mse
 patience = 20
 ckpt_save_interval = 5
-model_arch = GINConvNet
+model_arch = fraGINConvNet
 log_interval = 30
-cuda_name = cuda:7
+cuda_name = cuda:0
 
 [Infer]
 data_format = .pt
 model_file_name = model
 model_file_format = .pt
 infer_batch = 256
-cuda_name = cuda:7
+cuda_name = cuda:0

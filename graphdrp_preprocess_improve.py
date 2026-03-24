@@ -213,7 +213,8 @@ def run(params: Dict):
                        xd=xd,
                        xt=xc,
                        y=y,
-                       smile_graph=smiles_graphs)
+                       smile_graph=smiles_graphs,
+                       vocab_file_path="/mnt/nvme0/home/nguyenthaikhanh/kh/GraphDRP/mol/vocab.txt")
 
         # [Req] Save y dataframe for the current stage
         frm.save_stage_ydf(ydf=rsp, stage=stage, output_dir=params["output_dir"])

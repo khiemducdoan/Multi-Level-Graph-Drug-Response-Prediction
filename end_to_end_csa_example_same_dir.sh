@@ -27,7 +27,7 @@ SPLIT=0
 EPOCHS=10
 # EPOCHS=500
 
-CUDA_NAME=cuda:6
+CUDA_NAME=cuda:0
 
 # This script abs path
 # script_dir="$(dirname "$0")"

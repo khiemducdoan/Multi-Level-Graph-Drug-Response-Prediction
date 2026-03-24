@@ -141,3 +141,9 @@ param_log_file.txt
 deephyper/
 postproc*
 
+
+csa_data/*
+
+exp_result/*
+
+mol/*.pth

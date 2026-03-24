@@ -103,7 +103,8 @@ def run(params: Dict) -> Dict:
         data_dir=params["input_dir"],
         data_fname=train_data_fname,
         batch_size=params["batch_size"],
-        shuffle=True
+        shuffle=True,
+        vocab_file_path="/mnt/nvme0/home/nguyenthaikhanh/kh/GraphDRP/GraphFP/mol/vocab.txt"
     )
 
     # Don't shuffle the val_loader, otherwise results will be corrupted
@@ -114,7 +115,8 @@ def run(params: Dict) -> Dict:
         data_dir=params["input_dir"],
         data_fname=val_data_fname,
         batch_size=params["val_batch"],
-        shuffle=False
+        shuffle=False,
+        vocab_file_path="/mnt/nvme0/home/nguyenthaikhanh/kh/GraphDRP/GraphFP/mol/vocab.txt"
     )
 
     def determine_gene_dim(dataloader):
@@ -183,7 +185,11 @@ def run(params: Dict) -> Dict:
         print(f"{early_stop_metric}, {val_scores[early_stop_metric]}")
         sys.stdout.flush()
         if val_scores[early_stop_metric] < best_score:
-            torch.save(model.state_dict(), modelpath)
+            # torch.save(model.state_dict(), modelpath)
+            torch.save({
+                'model_state_dict': model.state_dict(),
+                'in_dim': model.in_dim # Assuming in_dim is stored as attribute
+            }, modelpath)
             best_epoch = epoch + 1
             best_score = val_scores[early_stop_metric]
             print(f"{early_stop_metric} improved at epoch {best_epoch};  "\

@@ -11,8 +11,8 @@ set -e
 # conda create -n GraphDRP_py37 python=3.7 pip --yes
 # conda activate GraphDRP_py37
 
-# conda install pytorch torchvision cudatoolkit=10.2 -c pytorch --yes
-# conda install pytorch==1.12.1 torchvision==0.13.1 torchaudio==0.12.1 cudatoolkit=10.2 -c pytorch
+conda install pytorch torchvision cudatoolkit=10.2 -c pytorch --yes
+conda install pytorch==1.12.1 torchvision==0.13.1 torchaudio==0.12.1 cudatoolkit=10.2 -c pytorch
 conda install pytorch==1.12.1 torchvision==0.13.1 cudatoolkit=10.2 -c pytorch
 conda install pyg=2.1.0 -c pyg -c conda-forge --yes
 
