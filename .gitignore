@@ -147,3 +147,6 @@ csa_data/*
 exp_result/*
 
 mol/*.pth
+mol/*.csv
+mol/*.zip
+mol/frag_dataset/
