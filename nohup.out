@@ -1,0 +1,1129 @@
+DEBUG CLI 2026-03-25 21:45:53,194:	Setting Command Line Options
+DEBUG CLI 2026-03-25 21:45:53,194:	Group: IMPROVE options
+WARNING CLI 2026-03-25 21:45:53,194:	Found log_level in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:45:53,194:	Removing log_level from options
+WARNING CLI 2026-03-25 21:45:53,194:	Found output_dir in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:45:53,194:	Removing output_dir from options
+DEBUG CLI 2026-03-25 21:45:53,194:	Adding param_log_file to new options
+DEBUG CLI 2026-03-25 21:45:53,194:	Adding data_format to new options
+DEBUG CLI 2026-03-25 21:45:53,194:	Adding input_supp_data_dir to new options
+DEBUG CLI 2026-03-25 21:45:53,195:	Unique Options:
+[   {   'default': 'param_log_file.txt',
+        'help': 'Log of final parameters used for run. Saved in out_dir if '
+                'file name, can be an absolute path.',
+        'name': 'param_log_file',
+        'type': <class 'str'>},
+    {   'default': '.parquet',
+        'help': "File format to save the ML data file (e.g., '.pt', "
+                "'.tfrecords').",
+        'name': 'data_format',
+        'type': <class 'str'>},
+    {   'default': '==SUPPRESS==',
+        'help': 'Directory containing supplementary data in addition to '
+                'benchmark data (usually model-specific data).',
+        'name': 'input_supp_data_dir',
+        'type': <class 'str'>}]
+DEBUG CLI 2026-03-25 21:45:53,195:	Setting Group to <argparse._ArgumentGroup object at 0x7f9d4476fa80>
+DEBUG CLI 2026-03-25 21:45:53,195:	Setting Command Line Options
+DEBUG CLI 2026-03-25 21:45:53,195:	Group: Preprocess stage options
+DEBUG CLI 2026-03-25 21:45:53,195:	Adding x_data_dir to new options
+DEBUG CLI 2026-03-25 21:45:53,195:	Adding y_data_dir to new options
+DEBUG CLI 2026-03-25 21:45:53,195:	Adding splits_dir to new options
+DEBUG CLI 2026-03-25 21:45:53,195:	Adding train_split_file to new options
+DEBUG CLI 2026-03-25 21:45:53,195:	Adding val_split_file to new options
+DEBUG CLI 2026-03-25 21:45:53,195:	Adding test_split_file to new options
+DEBUG CLI 2026-03-25 21:45:53,196:	Unique Options:
+[   {   'default': 'x_data',
+        'help': 'Directory name that contains the files with features data (x '
+                'data).',
+        'name': 'x_data_dir',
+        'type': <class 'str'>},
+    {   'default': 'y_data',
+        'help': 'Directory name that contains the files with target data (y '
+                'data).',
+        'name': 'y_data_dir',
+        'type': <class 'str'>},
+    {   'default': 'splits',
+        'help': 'Directory name that contains files that store split ids of '
+                'the y data file.',
+        'name': 'splits_dir',
+        'type': <class 'str'>},
+    {   'default': 'CCLE_split_0_train.txt',
+        'help': 'The path to the file that contains the train split indices or '
+                "ids (e.g., 'CCLE_split_0_train.txt').",
+        'name': 'train_split_file',
+        'required': True,
+        'type': <class 'str'>},
+    {   'default': 'CCLE_split_0_val.txt',
+        'help': 'The path to the file that contains the validation split '
+                "indices or ids (e.g., 'CCLE_split_0_val.txt').",
+        'name': 'val_split_file',
+        'required': True,
+        'type': <class 'str'>},
+    {   'default': 'CCLE_split_0_test.txt',
+        'help': 'The path to the file that contains the test split indices or '
+                "ids (e.g., 'CCLE_split_0_test.txt').",
+        'name': 'test_split_file',
+        'required': True,
+        'type': <class 'str'>}]
+DEBUG CLI 2026-03-25 21:45:53,196:	Setting Group to <argparse._ArgumentGroup object at 0x7f9d4476fe10>
+DEBUG CLI 2026-03-25 21:45:53,196:	Setting Command Line Options
+DEBUG CLI 2026-03-25 21:45:53,196:	Group: Drug Response Prediction Preprocessing
+DEBUG CLI 2026-03-25 21:45:53,196:	Adding y_data_files to new options
+DEBUG CLI 2026-03-25 21:45:53,196:	Adding x_data_canc_files to new options
+DEBUG CLI 2026-03-25 21:45:53,196:	Adding x_data_drug_files to new options
+DEBUG CLI 2026-03-25 21:45:53,196:	Adding canc_col_name to new options
+DEBUG CLI 2026-03-25 21:45:53,196:	Adding drug_col_name to new options
+DEBUG CLI 2026-03-25 21:45:53,196:	Adding y_col_name to new options
+DEBUG CLI 2026-03-25 21:45:53,196:	Unique Options:
+[   {   'default': "[['response.tsv']]",
+        'help': 'List of files that contain the y (prediction variable) data. '
+                "Example: [['response.tsv']]",
+        'name': 'y_data_files',
+        'type': <class 'str'>},
+    {   'default': "[['cancer_gene_expression.tsv', ['Gene_Symbol']]]",
+        'help': 'List of files containing omics-related features and the '
+                'identifiers to use. Examples:\n'
+                "1) [['cancer_gene_expression.tsv', ['Gene_Symbol']]]\n"
+                "2) [['cancer_copy_number.tsv', ['Ensembl', 'Entrez']]].",
+        'name': 'x_data_canc_files',
+        'type': <class 'str'>},
+    {   'default': "[['drug_SMILES.tsv']]",
+        'help': 'List of files containing drug-related features. Examples:\n'
+                "1) [['drug_SMILES.tsv']]\n"
+                "2) [['drug_SMILES.tsv'], ['drug_ecfp4_nbits512.tsv']]",
+        'name': 'x_data_drug_files',
+        'type': <class 'str'>},
+    {   'default': 'improve_sample_id',
+        'help': 'Column name in the y (response) data file that contains the '
+                'cancer sample IDs.',
+        'name': 'canc_col_name',
+        'type': <class 'str'>},
+    {   'default': 'improve_chem_id',
+        'help': 'Column name in the y (response) data file that contains the '
+                'drug IDs.',
+        'name': 'drug_col_name',
+        'type': <class 'str'>},
+    {   'default': 'auc',
+        'help': 'Column name in the y data file (e.g., response.tsv), that '
+                'represents the target variable that the model predicts. In '
+                'drug response prediction problem it can be IC50, AUC, and '
+                'others.',
+        'name': 'y_col_name',
+        'type': <class 'str'>}]
+DEBUG CLI 2026-03-25 21:45:53,197:	Setting Group to <argparse._ArgumentGroup object at 0x7f9d444556d0>
+DEBUG CLI 2026-03-25 21:45:53,197:	Setting Command Line Options
+DEBUG CLI 2026-03-25 21:45:53,197:	Group: Additional Parameters options
+DEBUG CLI 2026-03-25 21:45:53,197:	Adding cuda_name to new options
+DEBUG CLI 2026-03-25 21:45:53,197:	Adding csa_outdir to new options
+DEBUG CLI 2026-03-25 21:45:53,197:	Adding source_datasets to new options
+DEBUG CLI 2026-03-25 21:45:53,197:	Adding target_datasets to new options
+DEBUG CLI 2026-03-25 21:45:53,197:	Adding split_nums to new options
+DEBUG CLI 2026-03-25 21:45:53,197:	Adding only_cross_study to new options
+DEBUG CLI 2026-03-25 21:45:53,197:	Adding model_name to new options
+DEBUG CLI 2026-03-25 21:45:53,197:	Adding epochs to new options
+DEBUG CLI 2026-03-25 21:45:53,197:	Adding uses_cuda_name to new options
+DEBUG CLI 2026-03-25 21:45:53,198:	Unique Options:
+[   {   'default': 'cuda:0',
+        'help': 'Cuda device name.',
+        'name': 'cuda_name',
+        'type': <class 'str'>},
+    {   'default': './run.csa.full',
+        'help': 'Outdir for workflow.',
+        'name': 'csa_outdir',
+        'type': <class 'str'>},
+    {   'default': ['CCLE'],
+        'help': 'source_datasets for cross study analysis',
+        'name': 'source_datasets',
+        'nargs': '+',
+        'type': <class 'str'>},
+    {   'default': ['CCLE', 'gCSI'],
+        'help': 'target_datasets for cross study analysis',
+        'name': 'target_datasets',
+        'nargs': '+',
+        'type': <class 'str'>},
+    {   'default': ['0'],
+        'help': 'Split of the source datasets for CSA',
+        'name': 'split_nums',
+        'nargs': '+',
+        'type': <class 'str'>},
+    {   'default': False,
+        'help': 'If only cross study analysis is needed',
+        'name': 'only_cross_study',
+        'type': <function str2bool at 0x7f9dc20c4ae0>},
+    {   'default': 'graphdrp',
+        'help': 'Name of the deep learning model',
+        'name': 'model_name',
+        'type': <class 'str'>},
+    {   'default': 10,
+        'help': 'Number of epochs',
+        'name': 'epochs',
+        'type': <class 'int'>},
+    {   'default': True,
+        'help': "Change to false if the model doesn't have a cuda_name "
+                'parameter.',
+        'name': 'uses_cuda_name',
+        'type': <function str2bool at 0x7f9dc20c4ae0>}]
+DEBUG CLI 2026-03-25 21:45:53,198:	Setting Group to <argparse._ArgumentGroup object at 0x7f9d44403570>
+DEBUG CLI 2026-03-25 21:45:53,198:	Setting Command Line Options
+DEBUG CLI 2026-03-25 21:45:53,198:	Group: None
+WARNING CLI 2026-03-25 21:45:53,198:	Found log_level in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:45:53,198:	Removing log_level from options
+WARNING CLI 2026-03-25 21:45:53,198:	Found output_dir in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:45:53,198:	Removing output_dir from options
+WARNING CLI 2026-03-25 21:45:53,198:	Found param_log_file in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:45:53,198:	Removing param_log_file from options
+WARNING CLI 2026-03-25 21:45:53,198:	Found input_supp_data_dir in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:45:53,198:	Removing input_supp_data_dir from options
+WARNING CLI 2026-03-25 21:45:53,198:	Found y_data_dir in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:45:53,198:	Removing y_data_dir from options
+WARNING CLI 2026-03-25 21:45:53,198:	Found train_split_file in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:45:53,198:	Removing train_split_file from options
+WARNING CLI 2026-03-25 21:45:53,198:	Found test_split_file in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:45:53,198:	Removing test_split_file from options
+WARNING CLI 2026-03-25 21:45:53,198:	Found csa_outdir in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:45:53,198:	Removing csa_outdir from options
+WARNING CLI 2026-03-25 21:45:53,198:	Found target_datasets in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:45:53,198:	Removing target_datasets from options
+WARNING CLI 2026-03-25 21:45:53,198:	Found only_cross_study in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:45:53,198:	Removing only_cross_study from options
+WARNING CLI 2026-03-25 21:45:53,199:	Found epochs in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:45:53,199:	Removing epochs from options
+DEBUG CLI 2026-03-25 21:45:53,199:	Unique Options:
+[]
+WARNING Preprocess 2026-03-25 21:45:53,199:	Option help is missing required keys.
+WARNING Preprocess 2026-03-25 21:45:53,199:	Option input_dir is missing required keys.
+WARNING Preprocess 2026-03-25 21:45:53,199:	Option output_dir is missing required keys.
+WARNING Preprocess 2026-03-25 21:45:53,199:	Option log_level is missing required keys.
+WARNING Preprocess 2026-03-25 21:45:53,199:	Option config_file is missing required keys.
+WARNING Preprocess 2026-03-25 21:45:53,199:	Option param_log_file is missing required keys.
+WARNING Preprocess 2026-03-25 21:45:53,199:	Option data_format is missing required keys.
+WARNING Preprocess 2026-03-25 21:45:53,199:	Option input_supp_data_dir is missing required keys.
+WARNING Preprocess 2026-03-25 21:45:53,199:	Option x_data_dir is missing required keys.
+WARNING Preprocess 2026-03-25 21:45:53,199:	Option y_data_dir is missing required keys.
+WARNING Preprocess 2026-03-25 21:45:53,199:	Option splits_dir is missing required keys.
+WARNING Preprocess 2026-03-25 21:45:53,199:	Option train_split_file is missing required keys.
+WARNING Preprocess 2026-03-25 21:45:53,199:	Option val_split_file is missing required keys.
+WARNING Preprocess 2026-03-25 21:45:53,199:	Option test_split_file is missing required keys.
+WARNING Preprocess 2026-03-25 21:45:53,199:	Option y_data_files is missing required keys.
+WARNING Preprocess 2026-03-25 21:45:53,199:	Option x_data_canc_files is missing required keys.
+WARNING Preprocess 2026-03-25 21:45:53,199:	Option x_data_drug_files is missing required keys.
+WARNING Preprocess 2026-03-25 21:45:53,199:	Option canc_col_name is missing required keys.
+WARNING Preprocess 2026-03-25 21:45:53,199:	Option drug_col_name is missing required keys.
+WARNING Preprocess 2026-03-25 21:45:53,199:	Option y_col_name is missing required keys.
+WARNING Preprocess 2026-03-25 21:45:53,199:	Option cuda_name is missing required keys.
+WARNING Preprocess 2026-03-25 21:45:53,199:	Option csa_outdir is missing required keys.
+WARNING Preprocess 2026-03-25 21:45:53,199:	Option source_datasets is missing required keys.
+WARNING Preprocess 2026-03-25 21:45:53,199:	Option target_datasets is missing required keys.
+WARNING Preprocess 2026-03-25 21:45:53,199:	Option split_nums is missing required keys.
+WARNING Preprocess 2026-03-25 21:45:53,199:	Option only_cross_study is missing required keys.
+WARNING Preprocess 2026-03-25 21:45:53,199:	Option model_name is missing required keys.
+WARNING Preprocess 2026-03-25 21:45:53,199:	Option epochs is missing required keys.
+WARNING Preprocess 2026-03-25 21:45:53,199:	Option uses_cuda_name is missing required keys.
+DEBUG CLI 2026-03-25 21:45:53,199:	Setting Command Line Options
+DEBUG CLI 2026-03-25 21:45:53,199:	Group: None
+WARNING CLI 2026-03-25 21:45:53,199:	Found log_level in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:45:53,199:	Removing log_level from options
+WARNING CLI 2026-03-25 21:45:53,199:	Found output_dir in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:45:53,199:	Removing output_dir from options
+WARNING CLI 2026-03-25 21:45:53,199:	Found param_log_file in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:45:53,199:	Removing param_log_file from options
+WARNING CLI 2026-03-25 21:45:53,200:	Found input_supp_data_dir in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:45:53,200:	Removing input_supp_data_dir from options
+WARNING CLI 2026-03-25 21:45:53,200:	Found y_data_dir in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:45:53,200:	Removing y_data_dir from options
+WARNING CLI 2026-03-25 21:45:53,200:	Found train_split_file in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:45:53,200:	Removing train_split_file from options
+WARNING CLI 2026-03-25 21:45:53,200:	Found test_split_file in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:45:53,200:	Removing test_split_file from options
+WARNING CLI 2026-03-25 21:45:53,200:	Found csa_outdir in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:45:53,200:	Removing csa_outdir from options
+WARNING CLI 2026-03-25 21:45:53,200:	Found target_datasets in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:45:53,200:	Removing target_datasets from options
+WARNING CLI 2026-03-25 21:45:53,200:	Found only_cross_study in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:45:53,200:	Removing only_cross_study from options
+WARNING CLI 2026-03-25 21:45:53,200:	Found epochs in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:45:53,200:	Removing epochs from options
+DEBUG CLI 2026-03-25 21:45:53,200:	Unique Options:
+[]
+ERROR Preprocess 2026-03-25 21:45:53,200:	Option help is already defined. Skipping.
+ERROR Preprocess 2026-03-25 21:45:53,200:	Failed to add option: help
+DEBUG CLI 2026-03-25 21:45:53,200:	Getting the config file from the command line.
+DEBUG CLI 2026-03-25 21:45:53,200:	Config file: None
+INFO Preprocess 2026-03-25 21:45:53,200:	Loading config from /mnt/nvme0/home/nguyenthaikhanh/kh/GraphDRP/csa_bruteforce_params.ini
+ERROR Preprocess 2026-03-25 21:45:53,201:	Unsupported type <function str2bool at 0x7f9dc20c4ae0> for key only_cross_study
+ERROR Preprocess 2026-03-25 21:45:53,201:	Unsupported type <function str2bool at 0x7f9dc20c4ae0> for key uses_cuda_name
+DEBUG CLI 2026-03-25 21:45:53,201:	Getting Command Line Options
+File path: /mnt/nvme0/home/nguyenthaikhanh/kh/GraphDRP
+Loaded params
+Created script names.
+Created directory names.
+MAIN_CSA_OUTDIR:   bruteforce_csa_full_scale
+MAIN_ML_DATA_DIR:  bruteforce_csa_full_scale/ml_data
+MAIN_MODEL_DIR:    bruteforce_csa_full_scale/models
+MAIN_INFER_DIR:    bruteforce_csa_full_scale/infer
+Created splits path.
+splits_dir:  csa_data/raw_data/splits
+internal params
+
+source_datasets: ['CCLE', 'CTRPv2', 'gCSI', 'GDSCv1', 'GDSCv2']
+target_datasets: ['CCLE', 'CTRPv2', 'gCSI', 'GDSCv1', 'GDSCv2']
+split_nums:      ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+Split id 0 out of 10 splits.
+
+Source data: CCLE
+Target data: CCLE
+
+Preprocessing
+train_split_file: CCLE_split_0_train.txt
+val_split_file:   CCLE_split_0_val.txt
+test_split_file:  CCLE_split_0_test.txt
+returncode = 2
+Elapsed Time: 00:00:0.03428506851196289
+
+Train
+ml_data_dir: bruteforce_csa_full_scale/ml_data/CCLE-CCLE/split_0
+model_dir:   bruteforce_csa_full_scale/models/CCLE/split_0
+returncode = 2
+Traceback (most recent call last):
+  File "/mnt/nvme0/home/nguyenthaikhanh/kh/GraphDRP/csa_bruteforce_wf.py", line 201, in <module>
+    save_subprocess_stdout(result, model_dir)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/mnt/nvme0/home/nguyenthaikhanh/kh/IMPROVE/improvelib/utils.py", line 29, in save_subprocess_stdout
+    with open(result_file_name_stdout, 'w') as file:
+         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'bruteforce_csa_full_scale/models/CCLE/split_0/logs.txt'
+DEBUG CLI 2026-03-25 21:46:35,193:	Setting Command Line Options
+DEBUG CLI 2026-03-25 21:46:35,194:	Group: IMPROVE options
+WARNING CLI 2026-03-25 21:46:35,194:	Found log_level in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:46:35,194:	Removing log_level from options
+WARNING CLI 2026-03-25 21:46:35,194:	Found output_dir in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:46:35,194:	Removing output_dir from options
+DEBUG CLI 2026-03-25 21:46:35,194:	Adding param_log_file to new options
+DEBUG CLI 2026-03-25 21:46:35,194:	Adding data_format to new options
+DEBUG CLI 2026-03-25 21:46:35,194:	Adding input_supp_data_dir to new options
+DEBUG CLI 2026-03-25 21:46:35,194:	Unique Options:
+[   {   'default': 'param_log_file.txt',
+        'help': 'Log of final parameters used for run. Saved in out_dir if '
+                'file name, can be an absolute path.',
+        'name': 'param_log_file',
+        'type': <class 'str'>},
+    {   'default': '.parquet',
+        'help': "File format to save the ML data file (e.g., '.pt', "
+                "'.tfrecords').",
+        'name': 'data_format',
+        'type': <class 'str'>},
+    {   'default': '==SUPPRESS==',
+        'help': 'Directory containing supplementary data in addition to '
+                'benchmark data (usually model-specific data).',
+        'name': 'input_supp_data_dir',
+        'type': <class 'str'>}]
+DEBUG CLI 2026-03-25 21:46:35,194:	Setting Group to <argparse._ArgumentGroup object at 0x76fbafb67a80>
+DEBUG CLI 2026-03-25 21:46:35,195:	Setting Command Line Options
+DEBUG CLI 2026-03-25 21:46:35,195:	Group: Preprocess stage options
+DEBUG CLI 2026-03-25 21:46:35,195:	Adding x_data_dir to new options
+DEBUG CLI 2026-03-25 21:46:35,195:	Adding y_data_dir to new options
+DEBUG CLI 2026-03-25 21:46:35,195:	Adding splits_dir to new options
+DEBUG CLI 2026-03-25 21:46:35,195:	Adding train_split_file to new options
+DEBUG CLI 2026-03-25 21:46:35,195:	Adding val_split_file to new options
+DEBUG CLI 2026-03-25 21:46:35,195:	Adding test_split_file to new options
+DEBUG CLI 2026-03-25 21:46:35,195:	Unique Options:
+[   {   'default': 'x_data',
+        'help': 'Directory name that contains the files with features data (x '
+                'data).',
+        'name': 'x_data_dir',
+        'type': <class 'str'>},
+    {   'default': 'y_data',
+        'help': 'Directory name that contains the files with target data (y '
+                'data).',
+        'name': 'y_data_dir',
+        'type': <class 'str'>},
+    {   'default': 'splits',
+        'help': 'Directory name that contains files that store split ids of '
+                'the y data file.',
+        'name': 'splits_dir',
+        'type': <class 'str'>},
+    {   'default': 'CCLE_split_0_train.txt',
+        'help': 'The path to the file that contains the train split indices or '
+                "ids (e.g., 'CCLE_split_0_train.txt').",
+        'name': 'train_split_file',
+        'required': True,
+        'type': <class 'str'>},
+    {   'default': 'CCLE_split_0_val.txt',
+        'help': 'The path to the file that contains the validation split '
+                "indices or ids (e.g., 'CCLE_split_0_val.txt').",
+        'name': 'val_split_file',
+        'required': True,
+        'type': <class 'str'>},
+    {   'default': 'CCLE_split_0_test.txt',
+        'help': 'The path to the file that contains the test split indices or '
+                "ids (e.g., 'CCLE_split_0_test.txt').",
+        'name': 'test_split_file',
+        'required': True,
+        'type': <class 'str'>}]
+DEBUG CLI 2026-03-25 21:46:35,195:	Setting Group to <argparse._ArgumentGroup object at 0x76fbafb67e10>
+DEBUG CLI 2026-03-25 21:46:35,195:	Setting Command Line Options
+DEBUG CLI 2026-03-25 21:46:35,195:	Group: Drug Response Prediction Preprocessing
+DEBUG CLI 2026-03-25 21:46:35,195:	Adding y_data_files to new options
+DEBUG CLI 2026-03-25 21:46:35,195:	Adding x_data_canc_files to new options
+DEBUG CLI 2026-03-25 21:46:35,195:	Adding x_data_drug_files to new options
+DEBUG CLI 2026-03-25 21:46:35,196:	Adding canc_col_name to new options
+DEBUG CLI 2026-03-25 21:46:35,196:	Adding drug_col_name to new options
+DEBUG CLI 2026-03-25 21:46:35,196:	Adding y_col_name to new options
+DEBUG CLI 2026-03-25 21:46:35,196:	Unique Options:
+[   {   'default': "[['response.tsv']]",
+        'help': 'List of files that contain the y (prediction variable) data. '
+                "Example: [['response.tsv']]",
+        'name': 'y_data_files',
+        'type': <class 'str'>},
+    {   'default': "[['cancer_gene_expression.tsv', ['Gene_Symbol']]]",
+        'help': 'List of files containing omics-related features and the '
+                'identifiers to use. Examples:\n'
+                "1) [['cancer_gene_expression.tsv', ['Gene_Symbol']]]\n"
+                "2) [['cancer_copy_number.tsv', ['Ensembl', 'Entrez']]].",
+        'name': 'x_data_canc_files',
+        'type': <class 'str'>},
+    {   'default': "[['drug_SMILES.tsv']]",
+        'help': 'List of files containing drug-related features. Examples:\n'
+                "1) [['drug_SMILES.tsv']]\n"
+                "2) [['drug_SMILES.tsv'], ['drug_ecfp4_nbits512.tsv']]",
+        'name': 'x_data_drug_files',
+        'type': <class 'str'>},
+    {   'default': 'improve_sample_id',
+        'help': 'Column name in the y (response) data file that contains the '
+                'cancer sample IDs.',
+        'name': 'canc_col_name',
+        'type': <class 'str'>},
+    {   'default': 'improve_chem_id',
+        'help': 'Column name in the y (response) data file that contains the '
+                'drug IDs.',
+        'name': 'drug_col_name',
+        'type': <class 'str'>},
+    {   'default': 'auc',
+        'help': 'Column name in the y data file (e.g., response.tsv), that '
+                'represents the target variable that the model predicts. In '
+                'drug response prediction problem it can be IC50, AUC, and '
+                'others.',
+        'name': 'y_col_name',
+        'type': <class 'str'>}]
+DEBUG CLI 2026-03-25 21:46:35,196:	Setting Group to <argparse._ArgumentGroup object at 0x76fbaf84d6d0>
+DEBUG CLI 2026-03-25 21:46:35,197:	Setting Command Line Options
+DEBUG CLI 2026-03-25 21:46:35,197:	Group: Additional Parameters options
+DEBUG CLI 2026-03-25 21:46:35,197:	Adding cuda_name to new options
+DEBUG CLI 2026-03-25 21:46:35,197:	Adding csa_outdir to new options
+DEBUG CLI 2026-03-25 21:46:35,197:	Adding source_datasets to new options
+DEBUG CLI 2026-03-25 21:46:35,197:	Adding target_datasets to new options
+DEBUG CLI 2026-03-25 21:46:35,197:	Adding split_nums to new options
+DEBUG CLI 2026-03-25 21:46:35,197:	Adding only_cross_study to new options
+DEBUG CLI 2026-03-25 21:46:35,197:	Adding model_name to new options
+DEBUG CLI 2026-03-25 21:46:35,197:	Adding epochs to new options
+DEBUG CLI 2026-03-25 21:46:35,197:	Adding uses_cuda_name to new options
+DEBUG CLI 2026-03-25 21:46:35,197:	Unique Options:
+[   {   'default': 'cuda:0',
+        'help': 'Cuda device name.',
+        'name': 'cuda_name',
+        'type': <class 'str'>},
+    {   'default': './run.csa.full',
+        'help': 'Outdir for workflow.',
+        'name': 'csa_outdir',
+        'type': <class 'str'>},
+    {   'default': ['CCLE'],
+        'help': 'source_datasets for cross study analysis',
+        'name': 'source_datasets',
+        'nargs': '+',
+        'type': <class 'str'>},
+    {   'default': ['CCLE', 'gCSI'],
+        'help': 'target_datasets for cross study analysis',
+        'name': 'target_datasets',
+        'nargs': '+',
+        'type': <class 'str'>},
+    {   'default': ['0'],
+        'help': 'Split of the source datasets for CSA',
+        'name': 'split_nums',
+        'nargs': '+',
+        'type': <class 'str'>},
+    {   'default': False,
+        'help': 'If only cross study analysis is needed',
+        'name': 'only_cross_study',
+        'type': <function str2bool at 0x76fc2d4c4ae0>},
+    {   'default': 'graphdrp',
+        'help': 'Name of the deep learning model',
+        'name': 'model_name',
+        'type': <class 'str'>},
+    {   'default': 10,
+        'help': 'Number of epochs',
+        'name': 'epochs',
+        'type': <class 'int'>},
+    {   'default': True,
+        'help': "Change to false if the model doesn't have a cuda_name "
+                'parameter.',
+        'name': 'uses_cuda_name',
+        'type': <function str2bool at 0x76fc2d4c4ae0>}]
+DEBUG CLI 2026-03-25 21:46:35,197:	Setting Group to <argparse._ArgumentGroup object at 0x76fbafbff570>
+DEBUG CLI 2026-03-25 21:46:35,198:	Setting Command Line Options
+DEBUG CLI 2026-03-25 21:46:35,198:	Group: None
+WARNING CLI 2026-03-25 21:46:35,198:	Found log_level in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:46:35,198:	Removing log_level from options
+WARNING CLI 2026-03-25 21:46:35,198:	Found output_dir in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:46:35,198:	Removing output_dir from options
+WARNING CLI 2026-03-25 21:46:35,198:	Found param_log_file in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:46:35,198:	Removing param_log_file from options
+WARNING CLI 2026-03-25 21:46:35,198:	Found input_supp_data_dir in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:46:35,198:	Removing input_supp_data_dir from options
+WARNING CLI 2026-03-25 21:46:35,198:	Found y_data_dir in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:46:35,198:	Removing y_data_dir from options
+WARNING CLI 2026-03-25 21:46:35,198:	Found train_split_file in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:46:35,198:	Removing train_split_file from options
+WARNING CLI 2026-03-25 21:46:35,198:	Found test_split_file in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:46:35,198:	Removing test_split_file from options
+WARNING CLI 2026-03-25 21:46:35,198:	Found csa_outdir in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:46:35,198:	Removing csa_outdir from options
+WARNING CLI 2026-03-25 21:46:35,198:	Found target_datasets in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:46:35,198:	Removing target_datasets from options
+WARNING CLI 2026-03-25 21:46:35,198:	Found only_cross_study in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:46:35,198:	Removing only_cross_study from options
+WARNING CLI 2026-03-25 21:46:35,198:	Found epochs in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:46:35,198:	Removing epochs from options
+DEBUG CLI 2026-03-25 21:46:35,198:	Unique Options:
+[]
+WARNING Preprocess 2026-03-25 21:46:35,198:	Option help is missing required keys.
+WARNING Preprocess 2026-03-25 21:46:35,198:	Option input_dir is missing required keys.
+WARNING Preprocess 2026-03-25 21:46:35,198:	Option output_dir is missing required keys.
+WARNING Preprocess 2026-03-25 21:46:35,198:	Option log_level is missing required keys.
+WARNING Preprocess 2026-03-25 21:46:35,198:	Option config_file is missing required keys.
+WARNING Preprocess 2026-03-25 21:46:35,198:	Option param_log_file is missing required keys.
+WARNING Preprocess 2026-03-25 21:46:35,198:	Option data_format is missing required keys.
+WARNING Preprocess 2026-03-25 21:46:35,198:	Option input_supp_data_dir is missing required keys.
+WARNING Preprocess 2026-03-25 21:46:35,198:	Option x_data_dir is missing required keys.
+WARNING Preprocess 2026-03-25 21:46:35,198:	Option y_data_dir is missing required keys.
+WARNING Preprocess 2026-03-25 21:46:35,198:	Option splits_dir is missing required keys.
+WARNING Preprocess 2026-03-25 21:46:35,198:	Option train_split_file is missing required keys.
+WARNING Preprocess 2026-03-25 21:46:35,199:	Option val_split_file is missing required keys.
+WARNING Preprocess 2026-03-25 21:46:35,199:	Option test_split_file is missing required keys.
+WARNING Preprocess 2026-03-25 21:46:35,199:	Option y_data_files is missing required keys.
+WARNING Preprocess 2026-03-25 21:46:35,199:	Option x_data_canc_files is missing required keys.
+WARNING Preprocess 2026-03-25 21:46:35,199:	Option x_data_drug_files is missing required keys.
+WARNING Preprocess 2026-03-25 21:46:35,199:	Option canc_col_name is missing required keys.
+WARNING Preprocess 2026-03-25 21:46:35,199:	Option drug_col_name is missing required keys.
+WARNING Preprocess 2026-03-25 21:46:35,199:	Option y_col_name is missing required keys.
+WARNING Preprocess 2026-03-25 21:46:35,199:	Option cuda_name is missing required keys.
+WARNING Preprocess 2026-03-25 21:46:35,199:	Option csa_outdir is missing required keys.
+WARNING Preprocess 2026-03-25 21:46:35,199:	Option source_datasets is missing required keys.
+WARNING Preprocess 2026-03-25 21:46:35,199:	Option target_datasets is missing required keys.
+WARNING Preprocess 2026-03-25 21:46:35,199:	Option split_nums is missing required keys.
+WARNING Preprocess 2026-03-25 21:46:35,199:	Option only_cross_study is missing required keys.
+WARNING Preprocess 2026-03-25 21:46:35,199:	Option model_name is missing required keys.
+WARNING Preprocess 2026-03-25 21:46:35,199:	Option epochs is missing required keys.
+WARNING Preprocess 2026-03-25 21:46:35,199:	Option uses_cuda_name is missing required keys.
+DEBUG CLI 2026-03-25 21:46:35,199:	Setting Command Line Options
+DEBUG CLI 2026-03-25 21:46:35,199:	Group: None
+WARNING CLI 2026-03-25 21:46:35,199:	Found log_level in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:46:35,199:	Removing log_level from options
+WARNING CLI 2026-03-25 21:46:35,199:	Found output_dir in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:46:35,199:	Removing output_dir from options
+WARNING CLI 2026-03-25 21:46:35,199:	Found param_log_file in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:46:35,199:	Removing param_log_file from options
+WARNING CLI 2026-03-25 21:46:35,199:	Found input_supp_data_dir in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:46:35,199:	Removing input_supp_data_dir from options
+WARNING CLI 2026-03-25 21:46:35,199:	Found y_data_dir in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:46:35,199:	Removing y_data_dir from options
+WARNING CLI 2026-03-25 21:46:35,199:	Found train_split_file in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:46:35,199:	Removing train_split_file from options
+WARNING CLI 2026-03-25 21:46:35,199:	Found test_split_file in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:46:35,199:	Removing test_split_file from options
+WARNING CLI 2026-03-25 21:46:35,199:	Found csa_outdir in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:46:35,199:	Removing csa_outdir from options
+WARNING CLI 2026-03-25 21:46:35,199:	Found target_datasets in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:46:35,199:	Removing target_datasets from options
+WARNING CLI 2026-03-25 21:46:35,199:	Found only_cross_study in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:46:35,199:	Removing only_cross_study from options
+WARNING CLI 2026-03-25 21:46:35,199:	Found epochs in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:46:35,199:	Removing epochs from options
+DEBUG CLI 2026-03-25 21:46:35,199:	Unique Options:
+[]
+ERROR Preprocess 2026-03-25 21:46:35,200:	Option help is already defined. Skipping.
+ERROR Preprocess 2026-03-25 21:46:35,200:	Failed to add option: help
+DEBUG CLI 2026-03-25 21:46:35,200:	Getting the config file from the command line.
+DEBUG CLI 2026-03-25 21:46:35,200:	Config file: None
+INFO Preprocess 2026-03-25 21:46:35,200:	Loading config from /mnt/nvme0/home/nguyenthaikhanh/kh/GraphDRP/csa_bruteforce_params.ini
+ERROR Preprocess 2026-03-25 21:46:35,201:	Unsupported type <function str2bool at 0x76fc2d4c4ae0> for key only_cross_study
+ERROR Preprocess 2026-03-25 21:46:35,201:	Unsupported type <function str2bool at 0x76fc2d4c4ae0> for key uses_cuda_name
+DEBUG CLI 2026-03-25 21:46:35,201:	Getting Command Line Options
+File path: /mnt/nvme0/home/nguyenthaikhanh/kh/GraphDRP
+Loaded params
+Created script names.
+Created directory names.
+MAIN_CSA_OUTDIR:   bruteforce_csa_full_scale
+MAIN_ML_DATA_DIR:  bruteforce_csa_full_scale/ml_data
+MAIN_MODEL_DIR:    bruteforce_csa_full_scale/models
+MAIN_INFER_DIR:    bruteforce_csa_full_scale/infer
+Created splits path.
+splits_dir:  csa_data/raw_data/splits
+internal params
+
+source_datasets: ['CCLE', 'CTRPv2', 'gCSI', 'GDSCv1', 'GDSCv2']
+target_datasets: ['CCLE', 'CTRPv2', 'gCSI', 'GDSCv1', 'GDSCv2']
+split_nums:      ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+Split id 0 out of 10 splits.
+
+Source data: CCLE
+Target data: CCLE
+
+Preprocessing
+train_split_file: CCLE_split_0_train.txt
+val_split_file:   CCLE_split_0_val.txt
+test_split_file:  CCLE_split_0_test.txt
+returncode = 2
+Traceback (most recent call last):
+  File "/mnt/nvme0/home/nguyenthaikhanh/kh/GraphDRP/csa_bruteforce_wf.py", line 166, in <module>
+    save_subprocess_stdout(result, ml_data_dir)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/nvme0/home/nguyenthaikhanh/kh/IMPROVE/improvelib/utils.py", line 29, in save_subprocess_stdout
+    with open(result_file_name_stdout, 'w') as file:
+         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'bruteforce_csa_full_scale/ml_data/CCLE-CCLE/split_0/logs.txt'
+DEBUG CLI 2026-03-25 21:47:13,094:	Setting Command Line Options
+DEBUG CLI 2026-03-25 21:47:13,094:	Group: IMPROVE options
+WARNING CLI 2026-03-25 21:47:13,094:	Found log_level in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:47:13,094:	Removing log_level from options
+WARNING CLI 2026-03-25 21:47:13,094:	Found output_dir in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:47:13,094:	Removing output_dir from options
+DEBUG CLI 2026-03-25 21:47:13,094:	Adding param_log_file to new options
+DEBUG CLI 2026-03-25 21:47:13,094:	Adding data_format to new options
+DEBUG CLI 2026-03-25 21:47:13,094:	Adding input_supp_data_dir to new options
+DEBUG CLI 2026-03-25 21:47:13,095:	Unique Options:
+[   {   'default': 'param_log_file.txt',
+        'help': 'Log of final parameters used for run. Saved in out_dir if '
+                'file name, can be an absolute path.',
+        'name': 'param_log_file',
+        'type': <class 'str'>},
+    {   'default': '.parquet',
+        'help': "File format to save the ML data file (e.g., '.pt', "
+                "'.tfrecords').",
+        'name': 'data_format',
+        'type': <class 'str'>},
+    {   'default': '==SUPPRESS==',
+        'help': 'Directory containing supplementary data in addition to '
+                'benchmark data (usually model-specific data).',
+        'name': 'input_supp_data_dir',
+        'type': <class 'str'>}]
+DEBUG CLI 2026-03-25 21:47:13,095:	Setting Group to <argparse._ArgumentGroup object at 0x771a2086fa80>
+DEBUG CLI 2026-03-25 21:47:13,095:	Setting Command Line Options
+DEBUG CLI 2026-03-25 21:47:13,095:	Group: Preprocess stage options
+DEBUG CLI 2026-03-25 21:47:13,095:	Adding x_data_dir to new options
+DEBUG CLI 2026-03-25 21:47:13,095:	Adding y_data_dir to new options
+DEBUG CLI 2026-03-25 21:47:13,095:	Adding splits_dir to new options
+DEBUG CLI 2026-03-25 21:47:13,095:	Adding train_split_file to new options
+DEBUG CLI 2026-03-25 21:47:13,095:	Adding val_split_file to new options
+DEBUG CLI 2026-03-25 21:47:13,095:	Adding test_split_file to new options
+DEBUG CLI 2026-03-25 21:47:13,096:	Unique Options:
+[   {   'default': 'x_data',
+        'help': 'Directory name that contains the files with features data (x '
+                'data).',
+        'name': 'x_data_dir',
+        'type': <class 'str'>},
+    {   'default': 'y_data',
+        'help': 'Directory name that contains the files with target data (y '
+                'data).',
+        'name': 'y_data_dir',
+        'type': <class 'str'>},
+    {   'default': 'splits',
+        'help': 'Directory name that contains files that store split ids of '
+                'the y data file.',
+        'name': 'splits_dir',
+        'type': <class 'str'>},
+    {   'default': 'CCLE_split_0_train.txt',
+        'help': 'The path to the file that contains the train split indices or '
+                "ids (e.g., 'CCLE_split_0_train.txt').",
+        'name': 'train_split_file',
+        'required': True,
+        'type': <class 'str'>},
+    {   'default': 'CCLE_split_0_val.txt',
+        'help': 'The path to the file that contains the validation split '
+                "indices or ids (e.g., 'CCLE_split_0_val.txt').",
+        'name': 'val_split_file',
+        'required': True,
+        'type': <class 'str'>},
+    {   'default': 'CCLE_split_0_test.txt',
+        'help': 'The path to the file that contains the test split indices or '
+                "ids (e.g., 'CCLE_split_0_test.txt').",
+        'name': 'test_split_file',
+        'required': True,
+        'type': <class 'str'>}]
+DEBUG CLI 2026-03-25 21:47:13,096:	Setting Group to <argparse._ArgumentGroup object at 0x771a2086fe10>
+DEBUG CLI 2026-03-25 21:47:13,096:	Setting Command Line Options
+DEBUG CLI 2026-03-25 21:47:13,096:	Group: Drug Response Prediction Preprocessing
+DEBUG CLI 2026-03-25 21:47:13,096:	Adding y_data_files to new options
+DEBUG CLI 2026-03-25 21:47:13,096:	Adding x_data_canc_files to new options
+DEBUG CLI 2026-03-25 21:47:13,096:	Adding x_data_drug_files to new options
+DEBUG CLI 2026-03-25 21:47:13,096:	Adding canc_col_name to new options
+DEBUG CLI 2026-03-25 21:47:13,096:	Adding drug_col_name to new options
+DEBUG CLI 2026-03-25 21:47:13,096:	Adding y_col_name to new options
+DEBUG CLI 2026-03-25 21:47:13,096:	Unique Options:
+[   {   'default': "[['response.tsv']]",
+        'help': 'List of files that contain the y (prediction variable) data. '
+                "Example: [['response.tsv']]",
+        'name': 'y_data_files',
+        'type': <class 'str'>},
+    {   'default': "[['cancer_gene_expression.tsv', ['Gene_Symbol']]]",
+        'help': 'List of files containing omics-related features and the '
+                'identifiers to use. Examples:\n'
+                "1) [['cancer_gene_expression.tsv', ['Gene_Symbol']]]\n"
+                "2) [['cancer_copy_number.tsv', ['Ensembl', 'Entrez']]].",
+        'name': 'x_data_canc_files',
+        'type': <class 'str'>},
+    {   'default': "[['drug_SMILES.tsv']]",
+        'help': 'List of files containing drug-related features. Examples:\n'
+                "1) [['drug_SMILES.tsv']]\n"
+                "2) [['drug_SMILES.tsv'], ['drug_ecfp4_nbits512.tsv']]",
+        'name': 'x_data_drug_files',
+        'type': <class 'str'>},
+    {   'default': 'improve_sample_id',
+        'help': 'Column name in the y (response) data file that contains the '
+                'cancer sample IDs.',
+        'name': 'canc_col_name',
+        'type': <class 'str'>},
+    {   'default': 'improve_chem_id',
+        'help': 'Column name in the y (response) data file that contains the '
+                'drug IDs.',
+        'name': 'drug_col_name',
+        'type': <class 'str'>},
+    {   'default': 'auc',
+        'help': 'Column name in the y data file (e.g., response.tsv), that '
+                'represents the target variable that the model predicts. In '
+                'drug response prediction problem it can be IC50, AUC, and '
+                'others.',
+        'name': 'y_col_name',
+        'type': <class 'str'>}]
+DEBUG CLI 2026-03-25 21:47:13,096:	Setting Group to <argparse._ArgumentGroup object at 0x771a205996d0>
+DEBUG CLI 2026-03-25 21:47:13,097:	Setting Command Line Options
+DEBUG CLI 2026-03-25 21:47:13,097:	Group: Additional Parameters options
+DEBUG CLI 2026-03-25 21:47:13,097:	Adding cuda_name to new options
+DEBUG CLI 2026-03-25 21:47:13,097:	Adding csa_outdir to new options
+DEBUG CLI 2026-03-25 21:47:13,097:	Adding source_datasets to new options
+DEBUG CLI 2026-03-25 21:47:13,097:	Adding target_datasets to new options
+DEBUG CLI 2026-03-25 21:47:13,097:	Adding split_nums to new options
+DEBUG CLI 2026-03-25 21:47:13,097:	Adding only_cross_study to new options
+DEBUG CLI 2026-03-25 21:47:13,097:	Adding model_name to new options
+DEBUG CLI 2026-03-25 21:47:13,097:	Adding epochs to new options
+DEBUG CLI 2026-03-25 21:47:13,097:	Adding uses_cuda_name to new options
+DEBUG CLI 2026-03-25 21:47:13,098:	Unique Options:
+[   {   'default': 'cuda:0',
+        'help': 'Cuda device name.',
+        'name': 'cuda_name',
+        'type': <class 'str'>},
+    {   'default': './run.csa.full',
+        'help': 'Outdir for workflow.',
+        'name': 'csa_outdir',
+        'type': <class 'str'>},
+    {   'default': ['CCLE'],
+        'help': 'source_datasets for cross study analysis',
+        'name': 'source_datasets',
+        'nargs': '+',
+        'type': <class 'str'>},
+    {   'default': ['CCLE', 'gCSI'],
+        'help': 'target_datasets for cross study analysis',
+        'name': 'target_datasets',
+        'nargs': '+',
+        'type': <class 'str'>},
+    {   'default': ['0'],
+        'help': 'Split of the source datasets for CSA',
+        'name': 'split_nums',
+        'nargs': '+',
+        'type': <class 'str'>},
+    {   'default': False,
+        'help': 'If only cross study analysis is needed',
+        'name': 'only_cross_study',
+        'type': <function str2bool at 0x771a9e224ae0>},
+    {   'default': 'graphdrp',
+        'help': 'Name of the deep learning model',
+        'name': 'model_name',
+        'type': <class 'str'>},
+    {   'default': 10,
+        'help': 'Number of epochs',
+        'name': 'epochs',
+        'type': <class 'int'>},
+    {   'default': True,
+        'help': "Change to false if the model doesn't have a cuda_name "
+                'parameter.',
+        'name': 'uses_cuda_name',
+        'type': <function str2bool at 0x771a9e224ae0>}]
+DEBUG CLI 2026-03-25 21:47:13,098:	Setting Group to <argparse._ArgumentGroup object at 0x771a20907570>
+DEBUG CLI 2026-03-25 21:47:13,098:	Setting Command Line Options
+DEBUG CLI 2026-03-25 21:47:13,098:	Group: None
+WARNING CLI 2026-03-25 21:47:13,098:	Found log_level in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:47:13,098:	Removing log_level from options
+WARNING CLI 2026-03-25 21:47:13,098:	Found output_dir in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:47:13,098:	Removing output_dir from options
+WARNING CLI 2026-03-25 21:47:13,098:	Found param_log_file in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:47:13,098:	Removing param_log_file from options
+WARNING CLI 2026-03-25 21:47:13,098:	Found input_supp_data_dir in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:47:13,098:	Removing input_supp_data_dir from options
+WARNING CLI 2026-03-25 21:47:13,098:	Found y_data_dir in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:47:13,098:	Removing y_data_dir from options
+WARNING CLI 2026-03-25 21:47:13,098:	Found train_split_file in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:47:13,098:	Removing train_split_file from options
+WARNING CLI 2026-03-25 21:47:13,098:	Found test_split_file in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:47:13,098:	Removing test_split_file from options
+WARNING CLI 2026-03-25 21:47:13,098:	Found csa_outdir in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:47:13,098:	Removing csa_outdir from options
+WARNING CLI 2026-03-25 21:47:13,098:	Found target_datasets in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:47:13,098:	Removing target_datasets from options
+WARNING CLI 2026-03-25 21:47:13,098:	Found only_cross_study in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:47:13,098:	Removing only_cross_study from options
+WARNING CLI 2026-03-25 21:47:13,098:	Found epochs in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:47:13,098:	Removing epochs from options
+DEBUG CLI 2026-03-25 21:47:13,098:	Unique Options:
+[]
+WARNING Preprocess 2026-03-25 21:47:13,098:	Option help is missing required keys.
+WARNING Preprocess 2026-03-25 21:47:13,098:	Option input_dir is missing required keys.
+WARNING Preprocess 2026-03-25 21:47:13,099:	Option output_dir is missing required keys.
+WARNING Preprocess 2026-03-25 21:47:13,099:	Option log_level is missing required keys.
+WARNING Preprocess 2026-03-25 21:47:13,099:	Option config_file is missing required keys.
+WARNING Preprocess 2026-03-25 21:47:13,099:	Option param_log_file is missing required keys.
+WARNING Preprocess 2026-03-25 21:47:13,099:	Option data_format is missing required keys.
+WARNING Preprocess 2026-03-25 21:47:13,099:	Option input_supp_data_dir is missing required keys.
+WARNING Preprocess 2026-03-25 21:47:13,099:	Option x_data_dir is missing required keys.
+WARNING Preprocess 2026-03-25 21:47:13,099:	Option y_data_dir is missing required keys.
+WARNING Preprocess 2026-03-25 21:47:13,099:	Option splits_dir is missing required keys.
+WARNING Preprocess 2026-03-25 21:47:13,099:	Option train_split_file is missing required keys.
+WARNING Preprocess 2026-03-25 21:47:13,099:	Option val_split_file is missing required keys.
+WARNING Preprocess 2026-03-25 21:47:13,099:	Option test_split_file is missing required keys.
+WARNING Preprocess 2026-03-25 21:47:13,099:	Option y_data_files is missing required keys.
+WARNING Preprocess 2026-03-25 21:47:13,099:	Option x_data_canc_files is missing required keys.
+WARNING Preprocess 2026-03-25 21:47:13,099:	Option x_data_drug_files is missing required keys.
+WARNING Preprocess 2026-03-25 21:47:13,099:	Option canc_col_name is missing required keys.
+WARNING Preprocess 2026-03-25 21:47:13,099:	Option drug_col_name is missing required keys.
+WARNING Preprocess 2026-03-25 21:47:13,099:	Option y_col_name is missing required keys.
+WARNING Preprocess 2026-03-25 21:47:13,099:	Option cuda_name is missing required keys.
+WARNING Preprocess 2026-03-25 21:47:13,099:	Option csa_outdir is missing required keys.
+WARNING Preprocess 2026-03-25 21:47:13,099:	Option source_datasets is missing required keys.
+WARNING Preprocess 2026-03-25 21:47:13,099:	Option target_datasets is missing required keys.
+WARNING Preprocess 2026-03-25 21:47:13,099:	Option split_nums is missing required keys.
+WARNING Preprocess 2026-03-25 21:47:13,099:	Option only_cross_study is missing required keys.
+WARNING Preprocess 2026-03-25 21:47:13,099:	Option model_name is missing required keys.
+WARNING Preprocess 2026-03-25 21:47:13,099:	Option epochs is missing required keys.
+WARNING Preprocess 2026-03-25 21:47:13,099:	Option uses_cuda_name is missing required keys.
+DEBUG CLI 2026-03-25 21:47:13,099:	Setting Command Line Options
+DEBUG CLI 2026-03-25 21:47:13,099:	Group: None
+WARNING CLI 2026-03-25 21:47:13,099:	Found log_level in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:47:13,099:	Removing log_level from options
+WARNING CLI 2026-03-25 21:47:13,099:	Found output_dir in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:47:13,099:	Removing output_dir from options
+WARNING CLI 2026-03-25 21:47:13,099:	Found param_log_file in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:47:13,099:	Removing param_log_file from options
+WARNING CLI 2026-03-25 21:47:13,099:	Found input_supp_data_dir in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:47:13,099:	Removing input_supp_data_dir from options
+WARNING CLI 2026-03-25 21:47:13,099:	Found y_data_dir in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:47:13,099:	Removing y_data_dir from options
+WARNING CLI 2026-03-25 21:47:13,100:	Found train_split_file in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:47:13,100:	Removing train_split_file from options
+WARNING CLI 2026-03-25 21:47:13,100:	Found test_split_file in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:47:13,100:	Removing test_split_file from options
+WARNING CLI 2026-03-25 21:47:13,100:	Found csa_outdir in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:47:13,100:	Removing csa_outdir from options
+WARNING CLI 2026-03-25 21:47:13,100:	Found target_datasets in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:47:13,100:	Removing target_datasets from options
+WARNING CLI 2026-03-25 21:47:13,100:	Found only_cross_study in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:47:13,100:	Removing only_cross_study from options
+WARNING CLI 2026-03-25 21:47:13,100:	Found epochs in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:47:13,100:	Removing epochs from options
+DEBUG CLI 2026-03-25 21:47:13,100:	Unique Options:
+[]
+ERROR Preprocess 2026-03-25 21:47:13,100:	Option help is already defined. Skipping.
+ERROR Preprocess 2026-03-25 21:47:13,100:	Failed to add option: help
+DEBUG CLI 2026-03-25 21:47:13,100:	Getting the config file from the command line.
+DEBUG CLI 2026-03-25 21:47:13,100:	Config file: None
+INFO Preprocess 2026-03-25 21:47:13,100:	Loading config from /mnt/nvme0/home/nguyenthaikhanh/kh/GraphDRP/csa_bruteforce_params.ini
+ERROR Preprocess 2026-03-25 21:47:13,101:	Unsupported type <function str2bool at 0x771a9e224ae0> for key only_cross_study
+ERROR Preprocess 2026-03-25 21:47:13,101:	Unsupported type <function str2bool at 0x771a9e224ae0> for key uses_cuda_name
+DEBUG CLI 2026-03-25 21:47:13,101:	Getting Command Line Options
+File path: /mnt/nvme0/home/nguyenthaikhanh/kh/GraphDRP
+Loaded params
+Created script names.
+Created directory names.
+MAIN_CSA_OUTDIR:   bruteforce_csa_full_scale
+MAIN_ML_DATA_DIR:  bruteforce_csa_full_scale/ml_data
+MAIN_MODEL_DIR:    bruteforce_csa_full_scale/models
+MAIN_INFER_DIR:    bruteforce_csa_full_scale/infer
+Created splits path.
+splits_dir:  csa_data/raw_data/splits
+internal params
+
+source_datasets: ['CCLE', 'CTRPv2', 'gCSI', 'GDSCv1', 'GDSCv2']
+target_datasets: ['CCLE', 'CTRPv2', 'gCSI', 'GDSCv1', 'GDSCv2']
+split_nums:      ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+Split id 0 out of 10 splits.
+
+Source data: CCLE
+Target data: CCLE
+
+Preprocessing
+train_split_file: CCLE_split_0_train.txt
+val_split_file:   CCLE_split_0_val.txt
+test_split_file:  CCLE_split_0_test.txt
+returncode = 2
+Traceback (most recent call last):
+  File "/mnt/nvme0/home/nguyenthaikhanh/kh/GraphDRP/csa_bruteforce_wf.py", line 166, in <module>
+    save_subprocess_stdout(result, ml_data_dir)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/nvme0/home/nguyenthaikhanh/kh/IMPROVE/improvelib/utils.py", line 29, in save_subprocess_stdout
+    with open(result_file_name_stdout, 'w') as file:
+         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'bruteforce_csa_full_scale/ml_data/CCLE-CCLE/split_0/logs.txt'
+DEBUG CLI 2026-03-25 21:48:05,234:	Setting Command Line Options
+DEBUG CLI 2026-03-25 21:48:05,234:	Group: IMPROVE options
+WARNING CLI 2026-03-25 21:48:05,234:	Found log_level in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:48:05,234:	Removing log_level from options
+WARNING CLI 2026-03-25 21:48:05,234:	Found output_dir in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:48:05,234:	Removing output_dir from options
+DEBUG CLI 2026-03-25 21:48:05,234:	Adding param_log_file to new options
+DEBUG CLI 2026-03-25 21:48:05,234:	Adding data_format to new options
+DEBUG CLI 2026-03-25 21:48:05,234:	Adding input_supp_data_dir to new options
+DEBUG CLI 2026-03-25 21:48:05,235:	Unique Options:
+[   {   'default': 'param_log_file.txt',
+        'help': 'Log of final parameters used for run. Saved in out_dir if '
+                'file name, can be an absolute path.',
+        'name': 'param_log_file',
+        'type': <class 'str'>},
+    {   'default': '.parquet',
+        'help': "File format to save the ML data file (e.g., '.pt', "
+                "'.tfrecords').",
+        'name': 'data_format',
+        'type': <class 'str'>},
+    {   'default': '==SUPPRESS==',
+        'help': 'Directory containing supplementary data in addition to '
+                'benchmark data (usually model-specific data).',
+        'name': 'input_supp_data_dir',
+        'type': <class 'str'>}]
+DEBUG CLI 2026-03-25 21:48:05,235:	Setting Group to <argparse._ArgumentGroup object at 0x7a66ac72fa80>
+DEBUG CLI 2026-03-25 21:48:05,235:	Setting Command Line Options
+DEBUG CLI 2026-03-25 21:48:05,235:	Group: Preprocess stage options
+DEBUG CLI 2026-03-25 21:48:05,235:	Adding x_data_dir to new options
+DEBUG CLI 2026-03-25 21:48:05,235:	Adding y_data_dir to new options
+DEBUG CLI 2026-03-25 21:48:05,235:	Adding splits_dir to new options
+DEBUG CLI 2026-03-25 21:48:05,235:	Adding train_split_file to new options
+DEBUG CLI 2026-03-25 21:48:05,235:	Adding val_split_file to new options
+DEBUG CLI 2026-03-25 21:48:05,235:	Adding test_split_file to new options
+DEBUG CLI 2026-03-25 21:48:05,235:	Unique Options:
+[   {   'default': 'x_data',
+        'help': 'Directory name that contains the files with features data (x '
+                'data).',
+        'name': 'x_data_dir',
+        'type': <class 'str'>},
+    {   'default': 'y_data',
+        'help': 'Directory name that contains the files with target data (y '
+                'data).',
+        'name': 'y_data_dir',
+        'type': <class 'str'>},
+    {   'default': 'splits',
+        'help': 'Directory name that contains files that store split ids of '
+                'the y data file.',
+        'name': 'splits_dir',
+        'type': <class 'str'>},
+    {   'default': 'CCLE_split_0_train.txt',
+        'help': 'The path to the file that contains the train split indices or '
+                "ids (e.g., 'CCLE_split_0_train.txt').",
+        'name': 'train_split_file',
+        'required': True,
+        'type': <class 'str'>},
+    {   'default': 'CCLE_split_0_val.txt',
+        'help': 'The path to the file that contains the validation split '
+                "indices or ids (e.g., 'CCLE_split_0_val.txt').",
+        'name': 'val_split_file',
+        'required': True,
+        'type': <class 'str'>},
+    {   'default': 'CCLE_split_0_test.txt',
+        'help': 'The path to the file that contains the test split indices or '
+                "ids (e.g., 'CCLE_split_0_test.txt').",
+        'name': 'test_split_file',
+        'required': True,
+        'type': <class 'str'>}]
+DEBUG CLI 2026-03-25 21:48:05,235:	Setting Group to <argparse._ArgumentGroup object at 0x7a66ac72fe10>
+DEBUG CLI 2026-03-25 21:48:05,236:	Setting Command Line Options
+DEBUG CLI 2026-03-25 21:48:05,236:	Group: Drug Response Prediction Preprocessing
+DEBUG CLI 2026-03-25 21:48:05,236:	Adding y_data_files to new options
+DEBUG CLI 2026-03-25 21:48:05,236:	Adding x_data_canc_files to new options
+DEBUG CLI 2026-03-25 21:48:05,236:	Adding x_data_drug_files to new options
+DEBUG CLI 2026-03-25 21:48:05,236:	Adding canc_col_name to new options
+DEBUG CLI 2026-03-25 21:48:05,236:	Adding drug_col_name to new options
+DEBUG CLI 2026-03-25 21:48:05,236:	Adding y_col_name to new options
+DEBUG CLI 2026-03-25 21:48:05,236:	Unique Options:
+[   {   'default': "[['response.tsv']]",
+        'help': 'List of files that contain the y (prediction variable) data. '
+                "Example: [['response.tsv']]",
+        'name': 'y_data_files',
+        'type': <class 'str'>},
+    {   'default': "[['cancer_gene_expression.tsv', ['Gene_Symbol']]]",
+        'help': 'List of files containing omics-related features and the '
+                'identifiers to use. Examples:\n'
+                "1) [['cancer_gene_expression.tsv', ['Gene_Symbol']]]\n"
+                "2) [['cancer_copy_number.tsv', ['Ensembl', 'Entrez']]].",
+        'name': 'x_data_canc_files',
+        'type': <class 'str'>},
+    {   'default': "[['drug_SMILES.tsv']]",
+        'help': 'List of files containing drug-related features. Examples:\n'
+                "1) [['drug_SMILES.tsv']]\n"
+                "2) [['drug_SMILES.tsv'], ['drug_ecfp4_nbits512.tsv']]",
+        'name': 'x_data_drug_files',
+        'type': <class 'str'>},
+    {   'default': 'improve_sample_id',
+        'help': 'Column name in the y (response) data file that contains the '
+                'cancer sample IDs.',
+        'name': 'canc_col_name',
+        'type': <class 'str'>},
+    {   'default': 'improve_chem_id',
+        'help': 'Column name in the y (response) data file that contains the '
+                'drug IDs.',
+        'name': 'drug_col_name',
+        'type': <class 'str'>},
+    {   'default': 'auc',
+        'help': 'Column name in the y data file (e.g., response.tsv), that '
+                'represents the target variable that the model predicts. In '
+                'drug response prediction problem it can be IC50, AUC, and '
+                'others.',
+        'name': 'y_col_name',
+        'type': <class 'str'>}]
+DEBUG CLI 2026-03-25 21:48:05,236:	Setting Group to <argparse._ArgumentGroup object at 0x7a66ac4196d0>
+DEBUG CLI 2026-03-25 21:48:05,237:	Setting Command Line Options
+DEBUG CLI 2026-03-25 21:48:05,237:	Group: Additional Parameters options
+DEBUG CLI 2026-03-25 21:48:05,237:	Adding cuda_name to new options
+DEBUG CLI 2026-03-25 21:48:05,237:	Adding csa_outdir to new options
+DEBUG CLI 2026-03-25 21:48:05,237:	Adding source_datasets to new options
+DEBUG CLI 2026-03-25 21:48:05,237:	Adding target_datasets to new options
+DEBUG CLI 2026-03-25 21:48:05,237:	Adding split_nums to new options
+DEBUG CLI 2026-03-25 21:48:05,237:	Adding only_cross_study to new options
+DEBUG CLI 2026-03-25 21:48:05,237:	Adding model_name to new options
+DEBUG CLI 2026-03-25 21:48:05,237:	Adding epochs to new options
+DEBUG CLI 2026-03-25 21:48:05,237:	Adding uses_cuda_name to new options
+DEBUG CLI 2026-03-25 21:48:05,237:	Unique Options:
+[   {   'default': 'cuda:0',
+        'help': 'Cuda device name.',
+        'name': 'cuda_name',
+        'type': <class 'str'>},
+    {   'default': './run.csa.full',
+        'help': 'Outdir for workflow.',
+        'name': 'csa_outdir',
+        'type': <class 'str'>},
+    {   'default': ['CCLE'],
+        'help': 'source_datasets for cross study analysis',
+        'name': 'source_datasets',
+        'nargs': '+',
+        'type': <class 'str'>},
+    {   'default': ['CCLE', 'gCSI'],
+        'help': 'target_datasets for cross study analysis',
+        'name': 'target_datasets',
+        'nargs': '+',
+        'type': <class 'str'>},
+    {   'default': ['0'],
+        'help': 'Split of the source datasets for CSA',
+        'name': 'split_nums',
+        'nargs': '+',
+        'type': <class 'str'>},
+    {   'default': False,
+        'help': 'If only cross study analysis is needed',
+        'name': 'only_cross_study',
+        'type': <function str2bool at 0x7a672a0b0ae0>},
+    {   'default': 'graphdrp',
+        'help': 'Name of the deep learning model',
+        'name': 'model_name',
+        'type': <class 'str'>},
+    {   'default': 10,
+        'help': 'Number of epochs',
+        'name': 'epochs',
+        'type': <class 'int'>},
+    {   'default': True,
+        'help': "Change to false if the model doesn't have a cuda_name "
+                'parameter.',
+        'name': 'uses_cuda_name',
+        'type': <function str2bool at 0x7a672a0b0ae0>}]
+DEBUG CLI 2026-03-25 21:48:05,238:	Setting Group to <argparse._ArgumentGroup object at 0x7a66ac7c7570>
+DEBUG CLI 2026-03-25 21:48:05,238:	Setting Command Line Options
+DEBUG CLI 2026-03-25 21:48:05,238:	Group: None
+WARNING CLI 2026-03-25 21:48:05,238:	Found log_level in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:48:05,238:	Removing log_level from options
+WARNING CLI 2026-03-25 21:48:05,238:	Found output_dir in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:48:05,238:	Removing output_dir from options
+WARNING CLI 2026-03-25 21:48:05,238:	Found param_log_file in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:48:05,238:	Removing param_log_file from options
+WARNING CLI 2026-03-25 21:48:05,238:	Found input_supp_data_dir in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:48:05,238:	Removing input_supp_data_dir from options
+WARNING CLI 2026-03-25 21:48:05,238:	Found y_data_dir in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:48:05,238:	Removing y_data_dir from options
+WARNING CLI 2026-03-25 21:48:05,238:	Found train_split_file in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:48:05,238:	Removing train_split_file from options
+WARNING CLI 2026-03-25 21:48:05,238:	Found test_split_file in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:48:05,238:	Removing test_split_file from options
+WARNING CLI 2026-03-25 21:48:05,238:	Found csa_outdir in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:48:05,238:	Removing csa_outdir from options
+WARNING CLI 2026-03-25 21:48:05,238:	Found target_datasets in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:48:05,238:	Removing target_datasets from options
+WARNING CLI 2026-03-25 21:48:05,238:	Found only_cross_study in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:48:05,238:	Removing only_cross_study from options
+WARNING CLI 2026-03-25 21:48:05,238:	Found epochs in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:48:05,238:	Removing epochs from options
+DEBUG CLI 2026-03-25 21:48:05,238:	Unique Options:
+[]
+WARNING Preprocess 2026-03-25 21:48:05,238:	Option help is missing required keys.
+WARNING Preprocess 2026-03-25 21:48:05,238:	Option input_dir is missing required keys.
+WARNING Preprocess 2026-03-25 21:48:05,238:	Option output_dir is missing required keys.
+WARNING Preprocess 2026-03-25 21:48:05,238:	Option log_level is missing required keys.
+WARNING Preprocess 2026-03-25 21:48:05,238:	Option config_file is missing required keys.
+WARNING Preprocess 2026-03-25 21:48:05,238:	Option param_log_file is missing required keys.
+WARNING Preprocess 2026-03-25 21:48:05,238:	Option data_format is missing required keys.
+WARNING Preprocess 2026-03-25 21:48:05,239:	Option input_supp_data_dir is missing required keys.
+WARNING Preprocess 2026-03-25 21:48:05,239:	Option x_data_dir is missing required keys.
+WARNING Preprocess 2026-03-25 21:48:05,239:	Option y_data_dir is missing required keys.
+WARNING Preprocess 2026-03-25 21:48:05,239:	Option splits_dir is missing required keys.
+WARNING Preprocess 2026-03-25 21:48:05,239:	Option train_split_file is missing required keys.
+WARNING Preprocess 2026-03-25 21:48:05,239:	Option val_split_file is missing required keys.
+WARNING Preprocess 2026-03-25 21:48:05,239:	Option test_split_file is missing required keys.
+WARNING Preprocess 2026-03-25 21:48:05,239:	Option y_data_files is missing required keys.
+WARNING Preprocess 2026-03-25 21:48:05,239:	Option x_data_canc_files is missing required keys.
+WARNING Preprocess 2026-03-25 21:48:05,239:	Option x_data_drug_files is missing required keys.
+WARNING Preprocess 2026-03-25 21:48:05,239:	Option canc_col_name is missing required keys.
+WARNING Preprocess 2026-03-25 21:48:05,239:	Option drug_col_name is missing required keys.
+WARNING Preprocess 2026-03-25 21:48:05,239:	Option y_col_name is missing required keys.
+WARNING Preprocess 2026-03-25 21:48:05,239:	Option cuda_name is missing required keys.
+WARNING Preprocess 2026-03-25 21:48:05,239:	Option csa_outdir is missing required keys.
+WARNING Preprocess 2026-03-25 21:48:05,239:	Option source_datasets is missing required keys.
+WARNING Preprocess 2026-03-25 21:48:05,239:	Option target_datasets is missing required keys.
+WARNING Preprocess 2026-03-25 21:48:05,239:	Option split_nums is missing required keys.
+WARNING Preprocess 2026-03-25 21:48:05,239:	Option only_cross_study is missing required keys.
+WARNING Preprocess 2026-03-25 21:48:05,239:	Option model_name is missing required keys.
+WARNING Preprocess 2026-03-25 21:48:05,239:	Option epochs is missing required keys.
+WARNING Preprocess 2026-03-25 21:48:05,239:	Option uses_cuda_name is missing required keys.
+DEBUG CLI 2026-03-25 21:48:05,239:	Setting Command Line Options
+DEBUG CLI 2026-03-25 21:48:05,239:	Group: None
+WARNING CLI 2026-03-25 21:48:05,239:	Found log_level in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:48:05,239:	Removing log_level from options
+WARNING CLI 2026-03-25 21:48:05,239:	Found output_dir in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:48:05,239:	Removing output_dir from options
+WARNING CLI 2026-03-25 21:48:05,239:	Found param_log_file in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:48:05,239:	Removing param_log_file from options
+WARNING CLI 2026-03-25 21:48:05,239:	Found input_supp_data_dir in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:48:05,239:	Removing input_supp_data_dir from options
+WARNING CLI 2026-03-25 21:48:05,239:	Found y_data_dir in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:48:05,239:	Removing y_data_dir from options
+WARNING CLI 2026-03-25 21:48:05,239:	Found train_split_file in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:48:05,239:	Removing train_split_file from options
+WARNING CLI 2026-03-25 21:48:05,239:	Found test_split_file in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:48:05,239:	Removing test_split_file from options
+WARNING CLI 2026-03-25 21:48:05,239:	Found csa_outdir in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:48:05,239:	Removing csa_outdir from options
+WARNING CLI 2026-03-25 21:48:05,239:	Found target_datasets in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:48:05,239:	Removing target_datasets from options
+WARNING CLI 2026-03-25 21:48:05,240:	Found only_cross_study in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:48:05,240:	Removing only_cross_study from options
+WARNING CLI 2026-03-25 21:48:05,240:	Found epochs in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 21:48:05,240:	Removing epochs from options
+DEBUG CLI 2026-03-25 21:48:05,240:	Unique Options:
+[]
+ERROR Preprocess 2026-03-25 21:48:05,240:	Option help is already defined. Skipping.
+ERROR Preprocess 2026-03-25 21:48:05,240:	Failed to add option: help
+DEBUG CLI 2026-03-25 21:48:05,240:	Getting the config file from the command line.
+DEBUG CLI 2026-03-25 21:48:05,240:	Config file: None
+INFO Preprocess 2026-03-25 21:48:05,240:	Loading config from /mnt/nvme0/home/nguyenthaikhanh/kh/GraphDRP/csa_bruteforce_params.ini
+ERROR Preprocess 2026-03-25 21:48:05,241:	Unsupported type <function str2bool at 0x7a672a0b0ae0> for key only_cross_study
+ERROR Preprocess 2026-03-25 21:48:05,241:	Unsupported type <function str2bool at 0x7a672a0b0ae0> for key uses_cuda_name
+DEBUG CLI 2026-03-25 21:48:05,241:	Getting Command Line Options

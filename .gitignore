@@ -150,3 +150,5 @@ mol/*.pth
 mol/*.csv
 mol/*.zip
 mol/frag_dataset/
+
+GraphFP/

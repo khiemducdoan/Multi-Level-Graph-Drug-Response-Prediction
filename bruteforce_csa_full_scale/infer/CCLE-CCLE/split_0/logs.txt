@@ -1,0 +1,59 @@
+WARNING CLI 2026-03-25 21:58:13,473:	Found log_level in options. This option is predefined and cannot be overwritten.
+WARNING CLI 2026-03-25 21:58:13,473:	Found output_dir in options. This option is predefined and cannot be overwritten.
+WARNING CLI 2026-03-25 21:58:13,475:	Found log_level in options. This option is predefined and cannot be overwritten.
+WARNING CLI 2026-03-25 21:58:13,475:	Found output_dir in options. This option is predefined and cannot be overwritten.
+WARNING CLI 2026-03-25 21:58:13,475:	Found param_log_file in options. This option is predefined and cannot be overwritten.
+WARNING CLI 2026-03-25 21:58:13,475:	Found input_supp_data_dir in options. This option is predefined and cannot be overwritten.
+WARNING CLI 2026-03-25 21:58:13,475:	Found model_file_name in options. This option is predefined and cannot be overwritten.
+WARNING CLI 2026-03-25 21:58:13,475:	Found loss in options. This option is predefined and cannot be overwritten.
+WARNING CLI 2026-03-25 21:58:13,475:	Found input_model_dir in options. This option is predefined and cannot be overwritten.
+WARNING CLI 2026-03-25 21:58:13,475:	Found metric_type in options. This option is predefined and cannot be overwritten.
+WARNING CLI 2026-03-25 21:58:13,475:	Found cuda_name in options. This option is predefined and cannot be overwritten.
+WARNING Infer 2026-03-25 21:58:13,475:	Option help is missing required keys.
+WARNING Infer 2026-03-25 21:58:13,475:	Option input_dir is missing required keys.
+WARNING Infer 2026-03-25 21:58:13,475:	Option output_dir is missing required keys.
+WARNING Infer 2026-03-25 21:58:13,475:	Option log_level is missing required keys.
+WARNING Infer 2026-03-25 21:58:13,475:	Option config_file is missing required keys.
+WARNING Infer 2026-03-25 21:58:13,475:	Option param_log_file is missing required keys.
+WARNING Infer 2026-03-25 21:58:13,475:	Option data_format is missing required keys.
+WARNING Infer 2026-03-25 21:58:13,475:	Option input_supp_data_dir is missing required keys.
+WARNING Infer 2026-03-25 21:58:13,475:	Option infer_batch is missing required keys.
+WARNING Infer 2026-03-25 21:58:13,475:	Option model_file_name is missing required keys.
+WARNING Infer 2026-03-25 21:58:13,475:	Option model_file_format is missing required keys.
+WARNING Infer 2026-03-25 21:58:13,475:	Option loss is missing required keys.
+WARNING Infer 2026-03-25 21:58:13,475:	Option input_data_dir is missing required keys.
+WARNING Infer 2026-03-25 21:58:13,475:	Option input_model_dir is missing required keys.
+WARNING Infer 2026-03-25 21:58:13,475:	Option calc_infer_scores is missing required keys.
+WARNING Infer 2026-03-25 21:58:13,475:	Option metric_type is missing required keys.
+WARNING Infer 2026-03-25 21:58:13,475:	Option y_col_name is missing required keys.
+WARNING Infer 2026-03-25 21:58:13,475:	Option model_arch is missing required keys.
+WARNING Infer 2026-03-25 21:58:13,475:	Option cuda_name is missing required keys.
+WARNING CLI 2026-03-25 21:58:13,475:	Found log_level in options. This option is predefined and cannot be overwritten.
+WARNING CLI 2026-03-25 21:58:13,475:	Found output_dir in options. This option is predefined and cannot be overwritten.
+WARNING CLI 2026-03-25 21:58:13,475:	Found param_log_file in options. This option is predefined and cannot be overwritten.
+WARNING CLI 2026-03-25 21:58:13,475:	Found input_supp_data_dir in options. This option is predefined and cannot be overwritten.
+WARNING CLI 2026-03-25 21:58:13,476:	Found model_file_name in options. This option is predefined and cannot be overwritten.
+WARNING CLI 2026-03-25 21:58:13,476:	Found loss in options. This option is predefined and cannot be overwritten.
+WARNING CLI 2026-03-25 21:58:13,476:	Found input_model_dir in options. This option is predefined and cannot be overwritten.
+WARNING CLI 2026-03-25 21:58:13,476:	Found metric_type in options. This option is predefined and cannot be overwritten.
+WARNING CLI 2026-03-25 21:58:13,476:	Found cuda_name in options. This option is predefined and cannot be overwritten.
+ERROR Infer 2026-03-25 21:58:13,476:	Option help is already defined. Skipping.
+ERROR Infer 2026-03-25 21:58:13,476:	Failed to add option: help
+ERROR Infer 2026-03-25 21:58:13,477:	Unsupported type None for key model_arch
+/mnt/nvme0/home/nguyenthaikhanh/kh/GraphDRP/model_utils/torch_utils.py:402: UserWarning: 'data.DataLoader' is deprecated, use 'loader.DataLoader' instead
+  data_loader = DataLoader(
+Total Lines 801
+
+Test data:
+Infer_batch: 256
+Pre-processed data found: bruteforce_csa_full_scale/ml_data/CCLE-CCLE/split_0/processed/test_data.pt, loading ...
+PyTorch Dataset initialized.
+
+GPU available:  True
+CUDA_VISIBLE_DEVICES:  0
+cuda:0
+Make prediction for 951 samples...
+Inference scores:
+	{'mse': 0.006196336820721626, 'rmse': 0.07871681451797485, 'pcc': 0.8838120698928833, 'scc': 0.7959647698616095, 'r2': 0.7724173665046692}
+
+Finished model inference.
