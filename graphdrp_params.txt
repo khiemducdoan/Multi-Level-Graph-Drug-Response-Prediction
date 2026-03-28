@@ -2,9 +2,9 @@
 model_name = GraphDRP
 
 [Preprocess]
-train_split_file = CCLE_split_0_train.txt
-val_split_file = CCLE_split_0_val.txt
-test_split_file = CCLE_split_0_test.txt
+train_split_file = CTRPv2_split_0_train.txt
+val_split_file = CTRPv2_split_0_val.txt
+test_split_file = CTRPv2_split_0_test.txt
 data_format = .pt
 y_data_files = [["response.tsv"]]
 x_data_canc_files = [["cancer_gene_expression.tsv", ["Gene_Symbol"]]]

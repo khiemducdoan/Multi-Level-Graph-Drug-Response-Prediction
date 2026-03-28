@@ -18,7 +18,21 @@ from torch_geometric.data import Data
 from torch_geometric.data import InMemoryDataset
 from torch_geometric.data import Batch
 from itertools import repeat, product, chain
+def safe_mol_from_smiles(smiles):
+    """Parse SMILES with sanitize=False to accept metals."""
+    try:
+        return AllChem.MolFromSmiles(smiles, sanitize=False)
+    except Exception:
+        return None
 
+def safe_mol_to_smiles(mol, **kwargs):
+    """Convert mol to SMILES with None check."""
+    if mol is None:
+        return None
+    try:
+        return AllChem.MolToSmiles(mol, **kwargs)
+    except Exception:
+        return None
 
 # allowable node and edge features
 allowable_features = {
@@ -236,28 +250,44 @@ def get_gasteiger_partial_charges(mol, n_iter=12):
 
 def create_standardized_mol_id(smiles):
     """
-
-    :param smiles:
-    :return: inchi
+    Create standardized mol ID (InChI) from SMILES with metal support.
     """
-    if check_smiles_validity(smiles):
-        # remove stereochemistry
-        smiles = AllChem.MolToSmiles(AllChem.MolFromSmiles(smiles),
-                                     isomericSmiles=False)
-        mol = AllChem.MolFromSmiles(smiles)
-        if mol != None: # to catch weird issue with O=C1O[al]2oc(=O)c3ccc(cn3)c3ccccc3c3cccc(c3)c3ccccc3c3cc(C(F)(F)F)c(cc3o2)-c2ccccc2-c2cccc(c2)-c2ccccc2-c2cccnc21
-            if '.' in smiles: # if multiple species, pick largest molecule
-                mol_species_list = split_rdkit_mol_obj(mol)
-                largest_mol = get_largest_mol(mol_species_list)
-                inchi = AllChem.MolToInchi(largest_mol)
-            else:
-                inchi = AllChem.MolToInchi(mol)
-            return inchi
+    if not check_smiles_validity(smiles):
+        return None
+    
+    # 1. Parse với sanitize=False để chấp nhận kim loại
+    mol = safe_mol_from_smiles(smiles)
+    if mol is None:
+        return None
+    
+    # 2. Canonicalize SMILES (remove stereochemistry)
+    canonical_smiles = safe_mol_to_smiles(mol, isomericSmiles=False)
+    if canonical_smiles is None:
+        return None
+    
+    # 3. Parse lại canonical SMILES
+    mol = safe_mol_from_smiles(canonical_smiles)
+    if mol is None:
+        return None
+    
+    try:
+        if '.' in canonical_smiles:  # multiple species, pick largest
+            mol_species_list = split_rdkit_mol_obj(mol)
+            if not mol_species_list:
+                return None
+            largest_mol = get_largest_mol(mol_species_list)
+            # Try InChI, fallback to SMILES
+            try:
+                return AllChem.MolToInchi(largest_mol)
+            except Exception:
+                return safe_mol_to_smiles(largest_mol)
         else:
-            return
-    else:
-        return
-
+            try:
+                return AllChem.MolToInchi(mol)
+            except Exception:
+                return safe_mol_to_smiles(mol)
+    except Exception:
+        return None
 class MoleculeDataset(InMemoryDataset):
     def __init__(self,
                  root,
@@ -331,7 +361,7 @@ class MoleculeDataset(InMemoryDataset):
                 s = smiles_list[i]
                 # each example contains a single species
                 try:
-                    rdkit_mol = AllChem.MolFromSmiles(s)
+                    rdkit_mol = safe_mol_from_smiles(s)
                     if rdkit_mol != None:  # ignore invalid mol objects
                         # # convert aromatic bonds to double bonds
                         # Chem.SanitizeMol(rdkit_mol,
@@ -683,7 +713,7 @@ class MoleculeDataset(InMemoryDataset):
             for i in range(len(smiles_list)):
                 print(i)
                 s = smiles_list[i]
-                rdkit_mol = AllChem.MolFromSmiles(s)
+                rdkit_mol = safe_mol_from_smiles(s)
                 if rdkit_mol != None:  # ignore invalid mol objects
                     # # convert aromatic bonds to double bonds
                     # Chem.SanitizeMol(rdkit_mol,
@@ -706,7 +736,7 @@ class MoleculeDataset(InMemoryDataset):
             for i in range(len(smiles_list)):
                 print(i)
                 s = smiles_list[i]
-                rdkit_mol = AllChem.MolFromSmiles(s)
+                rdkit_mol = safe_mol_from_smiles(s)
                 if rdkit_mol != None:  # ignore invalid mol objects
                     # # convert aromatic bonds to double bonds
                     # Chem.SanitizeMol(rdkit_mol,
@@ -935,7 +965,7 @@ def _load_tox21_dataset(input_path):
     """
     input_df = pd.read_csv(input_path, sep=',')
     smiles_list = input_df['smiles']
-    rdkit_mol_objs_list = [AllChem.MolFromSmiles(s) for s in smiles_list]
+    rdkit_mol_objs_list = [safe_mol_from_smiles(s) for s in smiles_list]
     tasks = ['NR-AR', 'NR-AR-LBD', 'NR-AhR', 'NR-Aromatase', 'NR-ER', 'NR-ER-LBD',
        'NR-PPAR-gamma', 'SR-ARE', 'SR-ATAD5', 'SR-HSE', 'SR-MMP', 'SR-p53']
     labels = input_df[tasks]
@@ -955,7 +985,7 @@ def _load_hiv_dataset(input_path):
     """
     input_df = pd.read_csv(input_path, sep=',')
     smiles_list = input_df['smiles']
-    rdkit_mol_objs_list = [AllChem.MolFromSmiles(s) for s in smiles_list]
+    rdkit_mol_objs_list = [safe_mol_from_smiles(s) for s in smiles_list]
     labels = input_df['HIV_active']
     # convert 0 to -1
     labels = labels.replace(0, -1)
@@ -974,7 +1004,7 @@ def _load_bace_dataset(input_path):
     """
     input_df = pd.read_csv(input_path, sep=',')
     smiles_list = input_df['mol']
-    rdkit_mol_objs_list = [AllChem.MolFromSmiles(s) for s in smiles_list]
+    rdkit_mol_objs_list = [safe_mol_from_smiles(s) for s in smiles_list]
     labels = input_df['Class']
     # convert 0 to -1
     labels = labels.replace(0, -1)
@@ -997,11 +1027,11 @@ def _load_bbbp_dataset(input_path):
     """
     input_df = pd.read_csv(input_path, sep=',')
     smiles_list = input_df['smiles']
-    rdkit_mol_objs_list = [AllChem.MolFromSmiles(s) for s in smiles_list]
+    rdkit_mol_objs_list = [safe_mol_from_smiles(s) for s in smiles_list]
 
     preprocessed_rdkit_mol_objs_list = [m if m != None else None for m in
                                                           rdkit_mol_objs_list]
-    preprocessed_smiles_list = [AllChem.MolToSmiles(m) if m != None else
+    preprocessed_smiles_list = [safe_mol_to_smiles(m) if m != None else
                                 None for m in preprocessed_rdkit_mol_objs_list]
     labels = input_df['p_np']
     # convert 0 to -1
@@ -1022,11 +1052,11 @@ def _load_clintox_dataset(input_path):
     """
     input_df = pd.read_csv(input_path, sep=',')
     smiles_list = input_df['smiles']
-    rdkit_mol_objs_list = [AllChem.MolFromSmiles(s) for s in smiles_list]
+    rdkit_mol_objs_list = [safe_mol_from_smiles(s) for s in smiles_list]
 
     preprocessed_rdkit_mol_objs_list = [m if m != None else None for m in
                                         rdkit_mol_objs_list]
-    preprocessed_smiles_list = [AllChem.MolToSmiles(m) if m != None else
+    preprocessed_smiles_list = [safe_mol_to_smiles(m) if m != None else
                                 None for m in preprocessed_rdkit_mol_objs_list]
     tasks = ['FDA_APPROVED', 'CT_TOX']
     labels = input_df[tasks]
@@ -1051,7 +1081,7 @@ def _load_esol_dataset(input_path):
     # NB: some examples have multiple species
     input_df = pd.read_csv(input_path, sep=',')
     smiles_list = input_df['smiles']
-    rdkit_mol_objs_list = [AllChem.MolFromSmiles(s) for s in smiles_list]
+    rdkit_mol_objs_list = [safe_mol_from_smiles(s) for s in smiles_list]
     labels = input_df['measured log solubility in mols per litre']
     assert len(smiles_list) == len(rdkit_mol_objs_list)
     assert len(smiles_list) == len(labels)
@@ -1068,7 +1098,7 @@ def _load_freesolv_dataset(input_path):
     """
     input_df = pd.read_csv(input_path, sep=',')
     smiles_list = input_df['smiles']
-    rdkit_mol_objs_list = [AllChem.MolFromSmiles(s) for s in smiles_list]
+    rdkit_mol_objs_list = [safe_mol_from_smiles(s) for s in smiles_list]
     labels = input_df['expt']
     assert len(smiles_list) == len(rdkit_mol_objs_list)
     assert len(smiles_list) == len(labels)
@@ -1084,7 +1114,7 @@ def _load_lipophilicity_dataset(input_path):
     """
     input_df = pd.read_csv(input_path, sep=',')
     smiles_list = input_df['smiles']
-    rdkit_mol_objs_list = [AllChem.MolFromSmiles(s) for s in smiles_list]
+    rdkit_mol_objs_list = [safe_mol_from_smiles(s) for s in smiles_list]
     labels = input_df['exp']
     assert len(smiles_list) == len(rdkit_mol_objs_list)
     assert len(smiles_list) == len(labels)
@@ -1100,7 +1130,7 @@ def _load_muv_dataset(input_path):
     """
     input_df = pd.read_csv(input_path, sep=',')
     smiles_list = input_df['smiles']
-    rdkit_mol_objs_list = [AllChem.MolFromSmiles(s) for s in smiles_list]
+    rdkit_mol_objs_list = [safe_mol_from_smiles(s) for s in smiles_list]
     tasks = ['MUV-466', 'MUV-548', 'MUV-600', 'MUV-644', 'MUV-652', 'MUV-689',
        'MUV-692', 'MUV-712', 'MUV-713', 'MUV-733', 'MUV-737', 'MUV-810',
        'MUV-832', 'MUV-846', 'MUV-852', 'MUV-858', 'MUV-859']
@@ -1122,7 +1152,7 @@ def _load_sider_dataset(input_path):
     """
     input_df = pd.read_csv(input_path, sep=',')
     smiles_list = input_df['smiles']
-    rdkit_mol_objs_list = [AllChem.MolFromSmiles(s) for s in smiles_list]
+    rdkit_mol_objs_list = [safe_mol_from_smiles(s) for s in smiles_list]
     tasks = ['Hepatobiliary disorders',
        'Metabolism and nutrition disorders', 'Product issues', 'Eye disorders',
        'Investigations', 'Musculoskeletal and connective tissue disorders',
@@ -1158,12 +1188,12 @@ def _load_toxcast_dataset(input_path):
     # NB: some examples have multiple species, some example smiles are invalid
     input_df = pd.read_csv(input_path, sep=',')
     smiles_list = input_df['smiles']
-    rdkit_mol_objs_list = [AllChem.MolFromSmiles(s) for s in smiles_list]
+    rdkit_mol_objs_list = [safe_mol_from_smiles(s) for s in smiles_list]
     # Some smiles could not be successfully converted
     # to rdkit mol object so them to None
     preprocessed_rdkit_mol_objs_list = [m if m != None else None for m in
                                         rdkit_mol_objs_list]
-    preprocessed_smiles_list = [AllChem.MolToSmiles(m) if m != None else
+    preprocessed_smiles_list = [safe_mol_to_smiles(m) if m != None else
                                 None for m in preprocessed_rdkit_mol_objs_list]
     tasks = list(input_df.columns)[1:]
     labels = input_df[tasks]
@@ -1247,7 +1277,7 @@ def _load_chembl_with_labels_dataset(root_path):
 
     assert len(preprocessed_rdkitArr) == denseOutputData.shape[0]
 
-    smiles_list = [AllChem.MolToSmiles(m) if m != None else None for m in
+    smiles_list = [safe_mol_to_smiles(m) if m != None else None for m in
                    preprocessed_rdkitArr]   # bc some empty mol in the
     # rdkitArr zzz...
 
@@ -1257,28 +1287,37 @@ def _load_chembl_with_labels_dataset(root_path):
 # root_path = 'dataset/chembl_with_labels'
 
 def check_smiles_validity(smiles):
+    """Check if SMILES can be parsed, with metal support."""
     try:
-        m = Chem.MolFromSmiles(smiles)
+        # ✅ Dùng sanitize=False để chấp nhận kim loại
+        m = Chem.MolFromSmiles(smiles, sanitize=False)
         if m:
+            # Optional: thử sanitize để check chemical validity
+            try:
+                Chem.SanitizeMol(m)
+            except Exception:
+                pass  # Vẫn valid cho mục đích của chúng ta (kim loại)
             return True
-        else:
-            return False
-    except:
+        return False
+    except Exception:
         return False
 
 def split_rdkit_mol_obj(mol):
     """
-    Split rdkit mol object containing multiple species or one species into a
-    list of mol objects or a list containing a single object respectively
-    :param mol:
-    :return:
+    Split rdkit mol object containing multiple species into list of mol objects.
     """
-    smiles = AllChem.MolToSmiles(mol, isomericSmiles=True)
+    # ✅ Dùng safe_mol_to_smiles thay vì AllChem.MolToSmiles trực tiếp
+    smiles = safe_mol_to_smiles(mol, isomericSmiles=True)
+    if smiles is None:
+        return []
+    
     smiles_list = smiles.split('.')
     mol_species_list = []
     for s in smiles_list:
         if check_smiles_validity(s):
-            mol_species_list.append(AllChem.MolFromSmiles(s))
+            m = safe_mol_from_smiles(s)  # ✅ sanitize=False
+            if m is not None:
+                mol_species_list.append(m)
     return mol_species_list
 
 def get_largest_mol(mol_list):

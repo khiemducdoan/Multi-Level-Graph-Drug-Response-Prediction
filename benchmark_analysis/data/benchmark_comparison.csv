@@ -1,0 +1,29 @@
+Model,R2_Mean,R2_Std,Source,Dataset,Type,Year,Framework
+DeepCDR,0.7660,0.0230,Benchmark (Partin et al. 2025),CCLE,within,2020,TF-Keras
+GraphDRP,0.7460,0.0180,Benchmark (Partin et al. 2025),CCLE,within,2022,PyTorch
+HiDRA,0.7560,0.0200,Benchmark (Partin et al. 2025),CCLE,within,2021,TF-Keras
+LGBM,0.8010,0.0110,Benchmark (Partin et al. 2025),CCLE,within,N/A,LightGBM
+tCNNs,0.7050,0.0490,Benchmark (Partin et al. 2025),CCLE,within,2019,TF
+UNO,0.7960,0.0120,Benchmark (Partin et al. 2025),CCLE,within,2019,TF-Keras
+FraGraphDRP,0.7785,0.0091,FraGraphDRP,CCLE,within,2025,PyTorch
+DeepCDR,0.7200,0.0200,Benchmark (Partin et al. 2025),gCSI,within,2020,TF-Keras
+GraphDRP,0.7360,0.0290,Benchmark (Partin et al. 2025),gCSI,within,2022,PyTorch
+HiDRA,0.7110,0.0270,Benchmark (Partin et al. 2025),gCSI,within,2021,TF-Keras
+LGBM,0.7820,0.0200,Benchmark (Partin et al. 2025),gCSI,within,N/A,LightGBM
+tCNNs,0.5910,0.0610,Benchmark (Partin et al. 2025),gCSI,within,2019,TF
+UNO,0.7740,0.0250,Benchmark (Partin et al. 2025),gCSI,within,2019,TF-Keras
+FraGraphDRP,0.7377,0.0196,FraGraphDRP,gCSI,within,2025,PyTorch
+DeepCDR,0.1200,0.0200,Benchmark (Partin et al. 2025),CCLE-gCSI,cross,2020,TF-Keras
+GraphDRP,0.0800,0.0200,Benchmark (Partin et al. 2025),CCLE-gCSI,cross,2022,PyTorch
+HiDRA,0.0500,0.0200,Benchmark (Partin et al. 2025),CCLE-gCSI,cross,2021,TF-Keras
+LGBM,0.1800,0.0200,Benchmark (Partin et al. 2025),CCLE-gCSI,cross,N/A,LightGBM
+tCNNs,-0.0500,0.0200,Benchmark (Partin et al. 2025),CCLE-gCSI,cross,2019,TF
+UNO,0.2000,0.0200,Benchmark (Partin et al. 2025),CCLE-gCSI,cross,2019,TF-Keras
+FraGraphDRP,-9.4801,19.0604,FraGraphDRP,CCLE-gCSI,cross,2025,PyTorch
+DeepCDR,0.1800,0.0200,Benchmark (Partin et al. 2025),gCSI-CCLE,cross,2020,TF-Keras
+GraphDRP,0.1500,0.0200,Benchmark (Partin et al. 2025),gCSI-CCLE,cross,2022,PyTorch
+HiDRA,0.1200,0.0200,Benchmark (Partin et al. 2025),gCSI-CCLE,cross,2021,TF-Keras
+LGBM,0.2500,0.0200,Benchmark (Partin et al. 2025),gCSI-CCLE,cross,N/A,LightGBM
+tCNNs,0.0500,0.0200,Benchmark (Partin et al. 2025),gCSI-CCLE,cross,2019,TF
+UNO,0.2800,0.0200,Benchmark (Partin et al. 2025),gCSI-CCLE,cross,2019,TF-Keras
+FraGraphDRP,-0.2591,0.1456,FraGraphDRP,gCSI-CCLE,cross,2025,PyTorch

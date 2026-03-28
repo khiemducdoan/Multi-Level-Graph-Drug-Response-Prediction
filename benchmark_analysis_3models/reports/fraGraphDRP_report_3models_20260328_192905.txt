@@ -1,0 +1,54 @@
+==========================================================================================
+                              FraGraphDRP BENCHMARK REPORT
+                    Comparison with GraphDRP, tCNNs, DeepCDR
+==========================================================================================
+
+Generated: 2026-03-28 19:29:05
+Model: FraGraphDRP
+Benchmark: Partin et al. 2025 - 3 Models with Similar Data
+
+==========================================================================================
+ARCHITECTURE COMPARISON
+==========================================================================================
+
+DeepCDR:
+  Year: 2020
+  Framework: TF-Keras
+  Omics: GE, Methyl, Mu
+  Drug: Molecular Graph
+  Components: Batchnorm, Dropout
+
+GraphDRP:
+  Year: 2022
+  Framework: PyTorch
+  Omics: CNV, Mu
+  Drug: Molecular Graph
+  Components: Batchnorm, Dropout, GIN, 1D-CNN
+
+tCNNs:
+  Year: 2019
+  Framework: TF
+  Omics: CNV, Mu
+  Drug: SMILES (one-hot)
+  Components: 1D-CNN, Dropout
+
+
+==========================================================================================
+RANKING - CCLE
+==========================================================================================
+
+      Model  R2_Mean   R2_Std                         Source Dataset   Type
+FraGraphDRP 0.778548 0.009133                    FraGraphDRP    CCLE within
+    DeepCDR 0.766000 0.023000 Benchmark (Partin et al. 2025)    CCLE within
+   GraphDRP 0.746000 0.018000 Benchmark (Partin et al. 2025)    CCLE within
+      tCNNs 0.705000 0.049000 Benchmark (Partin et al. 2025)    CCLE within
+
+==========================================================================================
+RANKING - gCSI
+==========================================================================================
+
+      Model  R2_Mean   R2_Std                         Source Dataset   Type
+FraGraphDRP 0.737724 0.019586                    FraGraphDRP    gCSI within
+   GraphDRP 0.736000 0.029000 Benchmark (Partin et al. 2025)    gCSI within
+    DeepCDR 0.720000 0.020000 Benchmark (Partin et al. 2025)    gCSI within
+      tCNNs 0.591000 0.061000 Benchmark (Partin et al. 2025)    gCSI within

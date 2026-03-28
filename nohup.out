@@ -1127,3 +1127,1277 @@ INFO Preprocess 2026-03-25 21:48:05,240:	Loading config from /mnt/nvme0/home/ngu
 ERROR Preprocess 2026-03-25 21:48:05,241:	Unsupported type <function str2bool at 0x7a672a0b0ae0> for key only_cross_study
 ERROR Preprocess 2026-03-25 21:48:05,241:	Unsupported type <function str2bool at 0x7a672a0b0ae0> for key uses_cuda_name
 DEBUG CLI 2026-03-25 21:48:05,241:	Getting Command Line Options
+DEBUG CLI 2026-03-25 23:04:33,771:	Setting Command Line Options
+DEBUG CLI 2026-03-25 23:04:33,771:	Group: IMPROVE options
+WARNING CLI 2026-03-25 23:04:33,771:	Found log_level in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 23:04:33,771:	Removing log_level from options
+WARNING CLI 2026-03-25 23:04:33,771:	Found output_dir in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 23:04:33,771:	Removing output_dir from options
+DEBUG CLI 2026-03-25 23:04:33,771:	Adding param_log_file to new options
+DEBUG CLI 2026-03-25 23:04:33,771:	Adding data_format to new options
+DEBUG CLI 2026-03-25 23:04:33,771:	Adding input_supp_data_dir to new options
+DEBUG CLI 2026-03-25 23:04:33,772:	Unique Options:
+[   {   'default': 'param_log_file.txt',
+        'help': 'Log of final parameters used for run. Saved in out_dir if '
+                'file name, can be an absolute path.',
+        'name': 'param_log_file',
+        'type': <class 'str'>},
+    {   'default': '.parquet',
+        'help': "File format to save the ML data file (e.g., '.pt', "
+                "'.tfrecords').",
+        'name': 'data_format',
+        'type': <class 'str'>},
+    {   'default': '==SUPPRESS==',
+        'help': 'Directory containing supplementary data in addition to '
+                'benchmark data (usually model-specific data).',
+        'name': 'input_supp_data_dir',
+        'type': <class 'str'>}]
+DEBUG CLI 2026-03-25 23:04:33,772:	Setting Group to <argparse._ArgumentGroup object at 0x754a5fae3a80>
+DEBUG CLI 2026-03-25 23:04:33,772:	Setting Command Line Options
+DEBUG CLI 2026-03-25 23:04:33,772:	Group: Preprocess stage options
+DEBUG CLI 2026-03-25 23:04:33,772:	Adding x_data_dir to new options
+DEBUG CLI 2026-03-25 23:04:33,772:	Adding y_data_dir to new options
+DEBUG CLI 2026-03-25 23:04:33,772:	Adding splits_dir to new options
+DEBUG CLI 2026-03-25 23:04:33,772:	Adding train_split_file to new options
+DEBUG CLI 2026-03-25 23:04:33,772:	Adding val_split_file to new options
+DEBUG CLI 2026-03-25 23:04:33,772:	Adding test_split_file to new options
+DEBUG CLI 2026-03-25 23:04:33,773:	Unique Options:
+[   {   'default': 'x_data',
+        'help': 'Directory name that contains the files with features data (x '
+                'data).',
+        'name': 'x_data_dir',
+        'type': <class 'str'>},
+    {   'default': 'y_data',
+        'help': 'Directory name that contains the files with target data (y '
+                'data).',
+        'name': 'y_data_dir',
+        'type': <class 'str'>},
+    {   'default': 'splits',
+        'help': 'Directory name that contains files that store split ids of '
+                'the y data file.',
+        'name': 'splits_dir',
+        'type': <class 'str'>},
+    {   'default': 'CCLE_split_0_train.txt',
+        'help': 'The path to the file that contains the train split indices or '
+                "ids (e.g., 'CCLE_split_0_train.txt').",
+        'name': 'train_split_file',
+        'required': True,
+        'type': <class 'str'>},
+    {   'default': 'CCLE_split_0_val.txt',
+        'help': 'The path to the file that contains the validation split '
+                "indices or ids (e.g., 'CCLE_split_0_val.txt').",
+        'name': 'val_split_file',
+        'required': True,
+        'type': <class 'str'>},
+    {   'default': 'CCLE_split_0_test.txt',
+        'help': 'The path to the file that contains the test split indices or '
+                "ids (e.g., 'CCLE_split_0_test.txt').",
+        'name': 'test_split_file',
+        'required': True,
+        'type': <class 'str'>}]
+DEBUG CLI 2026-03-25 23:04:33,773:	Setting Group to <argparse._ArgumentGroup object at 0x754a5fae3e10>
+DEBUG CLI 2026-03-25 23:04:33,773:	Setting Command Line Options
+DEBUG CLI 2026-03-25 23:04:33,773:	Group: Drug Response Prediction Preprocessing
+DEBUG CLI 2026-03-25 23:04:33,773:	Adding y_data_files to new options
+DEBUG CLI 2026-03-25 23:04:33,773:	Adding x_data_canc_files to new options
+DEBUG CLI 2026-03-25 23:04:33,773:	Adding x_data_drug_files to new options
+DEBUG CLI 2026-03-25 23:04:33,773:	Adding canc_col_name to new options
+DEBUG CLI 2026-03-25 23:04:33,773:	Adding drug_col_name to new options
+DEBUG CLI 2026-03-25 23:04:33,773:	Adding y_col_name to new options
+DEBUG CLI 2026-03-25 23:04:33,774:	Unique Options:
+[   {   'default': "[['response.tsv']]",
+        'help': 'List of files that contain the y (prediction variable) data. '
+                "Example: [['response.tsv']]",
+        'name': 'y_data_files',
+        'type': <class 'str'>},
+    {   'default': "[['cancer_gene_expression.tsv', ['Gene_Symbol']]]",
+        'help': 'List of files containing omics-related features and the '
+                'identifiers to use. Examples:\n'
+                "1) [['cancer_gene_expression.tsv', ['Gene_Symbol']]]\n"
+                "2) [['cancer_copy_number.tsv', ['Ensembl', 'Entrez']]].",
+        'name': 'x_data_canc_files',
+        'type': <class 'str'>},
+    {   'default': "[['drug_SMILES.tsv']]",
+        'help': 'List of files containing drug-related features. Examples:\n'
+                "1) [['drug_SMILES.tsv']]\n"
+                "2) [['drug_SMILES.tsv'], ['drug_ecfp4_nbits512.tsv']]",
+        'name': 'x_data_drug_files',
+        'type': <class 'str'>},
+    {   'default': 'improve_sample_id',
+        'help': 'Column name in the y (response) data file that contains the '
+                'cancer sample IDs.',
+        'name': 'canc_col_name',
+        'type': <class 'str'>},
+    {   'default': 'improve_chem_id',
+        'help': 'Column name in the y (response) data file that contains the '
+                'drug IDs.',
+        'name': 'drug_col_name',
+        'type': <class 'str'>},
+    {   'default': 'auc',
+        'help': 'Column name in the y data file (e.g., response.tsv), that '
+                'represents the target variable that the model predicts. In '
+                'drug response prediction problem it can be IC50, AUC, and '
+                'others.',
+        'name': 'y_col_name',
+        'type': <class 'str'>}]
+DEBUG CLI 2026-03-25 23:04:33,774:	Setting Group to <argparse._ArgumentGroup object at 0x754a5f7cd6d0>
+DEBUG CLI 2026-03-25 23:04:33,774:	Setting Command Line Options
+DEBUG CLI 2026-03-25 23:04:33,774:	Group: Additional Parameters options
+DEBUG CLI 2026-03-25 23:04:33,774:	Adding cuda_name to new options
+DEBUG CLI 2026-03-25 23:04:33,774:	Adding csa_outdir to new options
+DEBUG CLI 2026-03-25 23:04:33,774:	Adding source_datasets to new options
+DEBUG CLI 2026-03-25 23:04:33,774:	Adding target_datasets to new options
+DEBUG CLI 2026-03-25 23:04:33,774:	Adding split_nums to new options
+DEBUG CLI 2026-03-25 23:04:33,774:	Adding only_cross_study to new options
+DEBUG CLI 2026-03-25 23:04:33,774:	Adding model_name to new options
+DEBUG CLI 2026-03-25 23:04:33,774:	Adding epochs to new options
+DEBUG CLI 2026-03-25 23:04:33,774:	Adding uses_cuda_name to new options
+DEBUG CLI 2026-03-25 23:04:33,775:	Unique Options:
+[   {   'default': 'cuda:0',
+        'help': 'Cuda device name.',
+        'name': 'cuda_name',
+        'type': <class 'str'>},
+    {   'default': './run.csa.full',
+        'help': 'Outdir for workflow.',
+        'name': 'csa_outdir',
+        'type': <class 'str'>},
+    {   'default': ['CCLE'],
+        'help': 'source_datasets for cross study analysis',
+        'name': 'source_datasets',
+        'nargs': '+',
+        'type': <class 'str'>},
+    {   'default': ['CCLE', 'gCSI'],
+        'help': 'target_datasets for cross study analysis',
+        'name': 'target_datasets',
+        'nargs': '+',
+        'type': <class 'str'>},
+    {   'default': ['0'],
+        'help': 'Split of the source datasets for CSA',
+        'name': 'split_nums',
+        'nargs': '+',
+        'type': <class 'str'>},
+    {   'default': False,
+        'help': 'If only cross study analysis is needed',
+        'name': 'only_cross_study',
+        'type': <function str2bool at 0x754add42cae0>},
+    {   'default': 'graphdrp',
+        'help': 'Name of the deep learning model',
+        'name': 'model_name',
+        'type': <class 'str'>},
+    {   'default': 10,
+        'help': 'Number of epochs',
+        'name': 'epochs',
+        'type': <class 'int'>},
+    {   'default': True,
+        'help': "Change to false if the model doesn't have a cuda_name "
+                'parameter.',
+        'name': 'uses_cuda_name',
+        'type': <function str2bool at 0x754add42cae0>}]
+DEBUG CLI 2026-03-25 23:04:33,775:	Setting Group to <argparse._ArgumentGroup object at 0x754a5fb7b570>
+DEBUG CLI 2026-03-25 23:04:33,775:	Setting Command Line Options
+DEBUG CLI 2026-03-25 23:04:33,775:	Group: None
+WARNING CLI 2026-03-25 23:04:33,775:	Found log_level in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 23:04:33,775:	Removing log_level from options
+WARNING CLI 2026-03-25 23:04:33,775:	Found output_dir in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 23:04:33,775:	Removing output_dir from options
+WARNING CLI 2026-03-25 23:04:33,775:	Found param_log_file in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 23:04:33,775:	Removing param_log_file from options
+WARNING CLI 2026-03-25 23:04:33,775:	Found input_supp_data_dir in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 23:04:33,775:	Removing input_supp_data_dir from options
+WARNING CLI 2026-03-25 23:04:33,775:	Found y_data_dir in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 23:04:33,775:	Removing y_data_dir from options
+WARNING CLI 2026-03-25 23:04:33,775:	Found train_split_file in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 23:04:33,775:	Removing train_split_file from options
+WARNING CLI 2026-03-25 23:04:33,776:	Found test_split_file in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 23:04:33,776:	Removing test_split_file from options
+WARNING CLI 2026-03-25 23:04:33,776:	Found csa_outdir in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 23:04:33,776:	Removing csa_outdir from options
+WARNING CLI 2026-03-25 23:04:33,776:	Found target_datasets in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 23:04:33,776:	Removing target_datasets from options
+WARNING CLI 2026-03-25 23:04:33,776:	Found only_cross_study in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 23:04:33,776:	Removing only_cross_study from options
+WARNING CLI 2026-03-25 23:04:33,776:	Found epochs in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 23:04:33,776:	Removing epochs from options
+DEBUG CLI 2026-03-25 23:04:33,776:	Unique Options:
+[]
+WARNING Preprocess 2026-03-25 23:04:33,776:	Option help is missing required keys.
+WARNING Preprocess 2026-03-25 23:04:33,776:	Option input_dir is missing required keys.
+WARNING Preprocess 2026-03-25 23:04:33,776:	Option output_dir is missing required keys.
+WARNING Preprocess 2026-03-25 23:04:33,776:	Option log_level is missing required keys.
+WARNING Preprocess 2026-03-25 23:04:33,776:	Option config_file is missing required keys.
+WARNING Preprocess 2026-03-25 23:04:33,776:	Option param_log_file is missing required keys.
+WARNING Preprocess 2026-03-25 23:04:33,776:	Option data_format is missing required keys.
+WARNING Preprocess 2026-03-25 23:04:33,776:	Option input_supp_data_dir is missing required keys.
+WARNING Preprocess 2026-03-25 23:04:33,776:	Option x_data_dir is missing required keys.
+WARNING Preprocess 2026-03-25 23:04:33,776:	Option y_data_dir is missing required keys.
+WARNING Preprocess 2026-03-25 23:04:33,776:	Option splits_dir is missing required keys.
+WARNING Preprocess 2026-03-25 23:04:33,776:	Option train_split_file is missing required keys.
+WARNING Preprocess 2026-03-25 23:04:33,776:	Option val_split_file is missing required keys.
+WARNING Preprocess 2026-03-25 23:04:33,776:	Option test_split_file is missing required keys.
+WARNING Preprocess 2026-03-25 23:04:33,776:	Option y_data_files is missing required keys.
+WARNING Preprocess 2026-03-25 23:04:33,776:	Option x_data_canc_files is missing required keys.
+WARNING Preprocess 2026-03-25 23:04:33,776:	Option x_data_drug_files is missing required keys.
+WARNING Preprocess 2026-03-25 23:04:33,776:	Option canc_col_name is missing required keys.
+WARNING Preprocess 2026-03-25 23:04:33,776:	Option drug_col_name is missing required keys.
+WARNING Preprocess 2026-03-25 23:04:33,776:	Option y_col_name is missing required keys.
+WARNING Preprocess 2026-03-25 23:04:33,776:	Option cuda_name is missing required keys.
+WARNING Preprocess 2026-03-25 23:04:33,776:	Option csa_outdir is missing required keys.
+WARNING Preprocess 2026-03-25 23:04:33,776:	Option source_datasets is missing required keys.
+WARNING Preprocess 2026-03-25 23:04:33,776:	Option target_datasets is missing required keys.
+WARNING Preprocess 2026-03-25 23:04:33,776:	Option split_nums is missing required keys.
+WARNING Preprocess 2026-03-25 23:04:33,776:	Option only_cross_study is missing required keys.
+WARNING Preprocess 2026-03-25 23:04:33,776:	Option model_name is missing required keys.
+WARNING Preprocess 2026-03-25 23:04:33,776:	Option epochs is missing required keys.
+WARNING Preprocess 2026-03-25 23:04:33,777:	Option uses_cuda_name is missing required keys.
+DEBUG CLI 2026-03-25 23:04:33,777:	Setting Command Line Options
+DEBUG CLI 2026-03-25 23:04:33,777:	Group: None
+WARNING CLI 2026-03-25 23:04:33,777:	Found log_level in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 23:04:33,777:	Removing log_level from options
+WARNING CLI 2026-03-25 23:04:33,777:	Found output_dir in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 23:04:33,777:	Removing output_dir from options
+WARNING CLI 2026-03-25 23:04:33,777:	Found param_log_file in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 23:04:33,777:	Removing param_log_file from options
+WARNING CLI 2026-03-25 23:04:33,777:	Found input_supp_data_dir in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 23:04:33,777:	Removing input_supp_data_dir from options
+WARNING CLI 2026-03-25 23:04:33,777:	Found y_data_dir in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 23:04:33,777:	Removing y_data_dir from options
+WARNING CLI 2026-03-25 23:04:33,777:	Found train_split_file in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 23:04:33,777:	Removing train_split_file from options
+WARNING CLI 2026-03-25 23:04:33,777:	Found test_split_file in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 23:04:33,777:	Removing test_split_file from options
+WARNING CLI 2026-03-25 23:04:33,777:	Found csa_outdir in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 23:04:33,777:	Removing csa_outdir from options
+WARNING CLI 2026-03-25 23:04:33,777:	Found target_datasets in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 23:04:33,777:	Removing target_datasets from options
+WARNING CLI 2026-03-25 23:04:33,777:	Found only_cross_study in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 23:04:33,777:	Removing only_cross_study from options
+WARNING CLI 2026-03-25 23:04:33,777:	Found epochs in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-25 23:04:33,777:	Removing epochs from options
+DEBUG CLI 2026-03-25 23:04:33,777:	Unique Options:
+[]
+ERROR Preprocess 2026-03-25 23:04:33,777:	Option help is already defined. Skipping.
+ERROR Preprocess 2026-03-25 23:04:33,777:	Failed to add option: help
+DEBUG CLI 2026-03-25 23:04:33,777:	Getting the config file from the command line.
+DEBUG CLI 2026-03-25 23:04:33,778:	Config file: None
+INFO Preprocess 2026-03-25 23:04:33,778:	Loading config from /mnt/nvme0/home/nguyenthaikhanh/kh/GraphDRP/csa_bruteforce_params.ini
+ERROR Preprocess 2026-03-25 23:04:33,778:	Unsupported type <function str2bool at 0x754add42cae0> for key only_cross_study
+ERROR Preprocess 2026-03-25 23:04:33,778:	Unsupported type <function str2bool at 0x754add42cae0> for key uses_cuda_name
+DEBUG CLI 2026-03-25 23:04:33,778:	Getting Command Line Options
+File path: /mnt/nvme0/home/nguyenthaikhanh/kh/GraphDRP
+Loaded params
+Created script names.
+Created directory names.
+MAIN_CSA_OUTDIR:   bruteforce_csa_full_scale
+MAIN_ML_DATA_DIR:  bruteforce_csa_full_scale/ml_data
+MAIN_MODEL_DIR:    bruteforce_csa_full_scale/models
+MAIN_INFER_DIR:    bruteforce_csa_full_scale/infer
+Created splits path.
+splits_dir:  csa_data/raw_data/splits
+internal params
+
+source_datasets: ['CCLE', 'CTRPv2', 'gCSI', 'GDSCv1', 'GDSCv2']
+target_datasets: ['CCLE', 'CTRPv2', 'gCSI', 'GDSCv1', 'GDSCv2']
+split_nums:      ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+Split id 0 out of 10 splits.
+
+Source data: CCLE
+Target data: CCLE
+
+Preprocessing
+train_split_file: CCLE_split_0_train.txt
+val_split_file:   CCLE_split_0_val.txt
+test_split_file:  CCLE_split_0_test.txt
+returncode = 0
+Elapsed Time: 00:07:24.72279167175293
+
+Train
+ml_data_dir: bruteforce_csa_full_scale/ml_data/CCLE-CCLE/split_0
+model_dir:   bruteforce_csa_full_scale/models/CCLE/split_0
+returncode = 0
+Elapsed Time: 00:02:38.6287579536438
+
+Infer
+returncode = 0
+Elapsed Time: 00:00:6.812376022338867
+
+Source data: CCLE
+Target data: CTRPv2
+
+Preprocessing
+train_split_file: CCLE_split_0_train.txt
+val_split_file:   CCLE_split_0_val.txt
+test_split_file:  CTRPv2_all.txt
+returncode = 1
+Elapsed Time: 05:12:7.028630971908569
+
+Infer
+returncode = 1
+Elapsed Time: 00:00:4.449368238449097
+
+Source data: CCLE
+Target data: gCSI
+
+Preprocessing
+train_split_file: CCLE_split_0_train.txt
+val_split_file:   CCLE_split_0_val.txt
+test_split_file:  gCSI_all.txt
+returncode = 0
+Elapsed Time: 00:09:48.275410175323486
+
+Infer
+returncode = 0
+Elapsed Time: 00:00:6.386705160140991
+
+Source data: CCLE
+Target data: GDSCv1
+
+Preprocessing
+train_split_file: CCLE_split_0_train.txt
+val_split_file:   CCLE_split_0_val.txt
+test_split_file:  GDSCv1_all.txt
+returncode = 1
+Elapsed Time: 02:07:38.052727460861206
+
+Infer
+returncode = 1
+Elapsed Time: 00:00:6.031806945800781
+
+Source data: CCLE
+Target data: GDSCv2
+
+Preprocessing
+train_split_file: CCLE_split_0_train.txt
+val_split_file:   CCLE_split_0_val.txt
+test_split_file:  GDSCv2_all.txt
+returncode = 1
+Elapsed Time: 01:31:57.00944185256958
+
+Infer
+returncode = 1
+Elapsed Time: 00:00:5.693086624145508
+Split id 1 out of 10 splits.
+
+Source data: CCLE
+Target data: CCLE
+
+Preprocessing
+train_split_file: CCLE_split_1_train.txt
+val_split_file:   CCLE_split_1_val.txt
+test_split_file:  CCLE_split_1_test.txt
+returncode = 0
+Elapsed Time: 00:06:39.69071388244629
+
+Train
+ml_data_dir: bruteforce_csa_full_scale/ml_data/CCLE-CCLE/split_1
+model_dir:   bruteforce_csa_full_scale/models/CCLE/split_1
+returncode = 0
+Elapsed Time: 00:02:54.89107322692871
+
+Infer
+returncode = 0
+Elapsed Time: 00:00:6.698794603347778
+
+Source data: CCLE
+Target data: CTRPv2
+
+Preprocessing
+train_split_file: CCLE_split_1_train.txt
+val_split_file:   CCLE_split_1_val.txt
+test_split_file:  CTRPv2_all.txt
+returncode = 1
+Elapsed Time: 05:33:51.36428093910217
+
+Infer
+returncode = 1
+Elapsed Time: 00:00:5.46195650100708
+
+Source data: CCLE
+Target data: gCSI
+
+Preprocessing
+train_split_file: CCLE_split_1_train.txt
+val_split_file:   CCLE_split_1_val.txt
+test_split_file:  gCSI_all.txt
+returncode = 0
+Elapsed Time: 00:12:15.138620853424072
+
+Infer
+returncode = 0
+Elapsed Time: 00:00:8.415573120117188
+
+Source data: CCLE
+Target data: GDSCv1
+
+Preprocessing
+train_split_file: CCLE_split_1_train.txt
+val_split_file:   CCLE_split_1_val.txt
+test_split_file:  GDSCv1_all.txt
+returncode = 1
+Elapsed Time: 02:22:41.296746492385864
+
+Infer
+returncode = 1
+Elapsed Time: 00:00:6.040209531784058
+
+Source data: CCLE
+Target data: GDSCv2
+
+Preprocessing
+train_split_file: CCLE_split_1_train.txt
+val_split_file:   CCLE_split_1_val.txt
+test_split_file:  GDSCv2_all.txt
+returncode = 1
+Traceback (most recent call last):
+  File "/mnt/nvme0/home/nguyenthaikhanh/kh/GraphDRP/csFile path: /mnt/nvme0/home/nguyenthaikhanh/kh/GraphDRP
+Loaded params
+Created script names.
+Created directory names.
+MAIN_CSA_OUTDIR:   bruteforce_csa_full_scale
+MAIN_ML_DATA_DIR:  bruteforce_csa_full_scale/ml_data
+MAIN_MODEL_DIR:    bruteforce_csa_full_scale/models
+MAIN_INFER_DIR:    bruteforce_csa_full_scale/infer
+Created splits path.
+splits_dir:  csa_data/raw_data/splits
+internal params
+
+source_datasets: ['CCLE', 'CTRPv2', 'gCSI', 'GDSCv1', 'GDSCv2']
+target_datasets: ['CCLE', 'CTRPv2', 'gCSI', 'GDSCv1', 'GDSCv2']
+split_nums:      ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+Split id 0 out of 10 splits.
+
+Source data: CCLE
+Target data: CCLE
+
+Preprocessing
+train_split_file: CCLE_split_0_train.txt
+val_split_file:   CCLE_split_0_val.txt
+test_split_file:  CCLE_split_0_test.txt
+returncode = 0
+Elapsed Time: 00:07:31.90440559387207
+
+Train
+ml_data_dir: bruteforce_csa_full_scale/ml_data/CCLE-CCLE/split_0
+model_dir:   bruteforce_csa_full_scale/models/CCLE/split_0
+returncode = 0
+Elapsed Time: 00:02:58.878448724746704
+
+Infer
+returncode = 0
+Elapsed Time: 00:00:5.620488166809082
+
+Source data: CCLE
+Target data: CTRPv2
+
+Preprocessing
+train_split_file: CCLE_split_0_train.txt
+val_split_file:   CCLE_split_0_val.txt
+test_split_file:  CTRPv2_all.txt
+returncode = 1
+Elapsed Time: 05:21:26.42589807510376
+
+Infer
+returncode = 1
+Elapsed Time: 00:00:5.688564777374268
+
+Source data: CCLE
+Target data: gCSI
+
+Preprocessing
+train_split_file: CCLE_split_0_train.txt
+val_split_file:   CCLE_split_0_val.txt
+test_split_file:  gCSI_all.txt
+returncode = 0
+Elapsed Time: 00:00:33.52545475959778
+
+Infer
+returncode = 0
+Elapsed Time: 00:00:6.550633668899536
+
+Source data: CCLE
+Target data: GDSCv1
+
+Preprocessing
+train_split_file: CCLE_split_0_train.txt
+val_split_file:   CCLE_split_0_val.txt
+test_split_file:  GDSCv1_all.txt
+returncode = 1
+Elapsed Time: 02:07:34.441126108169556
+
+Infer
+returncode = 1
+Elapsed Time: 00:00:5.514881372451782
+
+Source data: CCLE
+Target data: GDSCv2
+
+Preprocessing
+train_split_file: CCLE_split_0_train.txt
+val_split_file:   CCLE_split_0_val.txt
+test_split_file:  GDSCv2_all.txt
+returncode = 1
+Elapsed Time: 01:34:3.635129928588867
+
+Infer
+returncode = 1
+Elapsed Time: 00:00:5.548957824707031
+Split id 1 out of 10 splits.
+
+Source data: CCLE
+Target data: CCLE
+
+Preprocessing
+train_split_file: CCLE_split_1_train.txt
+val_split_file:   CCLE_split_1_val.txt
+test_split_file:  CCLE_split_1_test.txt
+returncode = 0
+Elapsed Time: 00:00:29.64650058746338
+
+Infer
+returncode = 0
+Elapsed Time: 00:00:6.491059303283691
+
+Source data: CCLE
+Target data: CTRPv2
+
+Preprocessing
+train_split_file: CCLE_split_1_train.txt
+val_split_file:   CCLE_split_1_val.txt
+test_split_file:  CTRPv2_all.txt
+returncode = 1
+Elapsed Time: 05:38:23.3399875164032
+
+Infer
+returncode = 1
+Elapsed Time: 00:00:5.684540510177612
+
+Source data: CCLE
+Target data: gCSI
+
+Preprocessing
+train_split_file: CCLE_split_1_train.txt
+val_split_file:   CCLE_split_1_val.txt
+test_split_file:  gCSI_all.txt
+returncode = 0
+Elapsed Time: 00:00:33.53528809547424
+
+Infer
+returncode = 0
+Elapsed Time: 00:00:7.758016347885132
+
+Source data: CCLE
+Target data: GDSCv1
+
+Preprocessing
+train_split_file: CCLE_split_1_train.txt
+val_split_file:   CCLE_split_1_val.txt
+test_split_file:  GDSCv1_all.txt
+returncode = 1
+Elapsed Time: 02:18:1.421257734298706
+
+Infer
+returncode = 1
+Elapsed Time: 00:00:5.776360750198364
+
+Source data: CCLE
+Target data: GDSCv2
+
+Preprocessing
+train_split_file: CCLE_split_1_train.txt
+val_split_file:   CCLE_split_1_val.txt
+test_split_file:  GDSCv2_all.txt
+returncode = 1
+Elapsed Time: 00:00:29.92817974090576
+
+Infer
+returncode = 1
+Elapsed Time: 00:00:5.209730625152588
+Split id 2 out of 10 splits.
+
+Source data: CCLE
+Target data: CCLE
+
+Preprocessing
+train_split_file: CCLE_split_2_train.txt
+val_split_file:   CCLE_split_2_val.txt
+test_split_file:  CCLE_split_2_test.txt
+returncode = 0
+Elapsed Time: 00:07:10.398214340209961
+
+Train
+ml_data_dir: bruteforce_csa_full_scale/ml_data/CCLE-CCLE/split_2
+model_dir:   bruteforce_csa_full_scale/models/CCLE/split_2
+returncode = 0
+Elapsed Time: 00:03:50.14187240600586
+
+Infer
+returncode = 0
+Elapsed Time: 00:00:7.157884120941162
+
+Source data: CCLE
+Target data: CTRPv2
+
+Preprocessing
+train_split_file: CCLE_split_2_train.txt
+val_split_file:   CCLE_split_2_val.txt
+test_split_file:  CTRPv2_all.txt
+returncode = 1
+Elapsed Time: 05:27:46.77845025062561
+
+Infer
+returncode = 1
+Elapsed Time: 00:00:5.882697343826294
+
+Source data: CCLE
+Target data: gCSI
+
+Preprocessing
+train_split_file: CCLE_split_2_train.txt
+val_split_file:   CCLE_split_2_val.txt
+test_split_file:  gCSI_all.txt
+returncode = 0
+Elapsed Time: 00:10:9.373152017593384
+
+Infer
+returncode = 0
+Elapsed Time: 00:00:7.326185941696167
+
+Source data: CCLE
+Target data: GDSCv1
+
+Preprocessing
+train_split_file: CCLE_split_2_train.txt
+val_split_file:   CCLE_split_2_val.txt
+test_split_file:  GDSCv1_all.txt
+returncode = 1
+Traceback (most recent call last):
+  File "/mnt/nvme0/home/nguyenthaikhanh/kh/GraphDRP/csa_bruteforce_wf.py", line 166, in <module>
+    save_subprocess_stdout(result, ml_data_dir)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/nvme0/home/nguyenthaikhanh/kh/IMPROVE/improvelib/utils.py", line 29, in save_subprocess_stdout
+    with open(result_file_name_stdout, 'w') as file:
+         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'bruteforce_csa_full_scale/ml_data/CCLE-GDSCv1/split_2/logs.txt'
+DEBUG CLI 2026-03-27 03:40:12,573:	Setting Command Line Options
+DEBUG CLI 2026-03-27 03:40:12,573:	Group: IMPROVE options
+WARNING CLI 2026-03-27 03:40:12,573:	Found log_level in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-27 03:40:12,573:	Removing log_level from options
+WARNING CLI 2026-03-27 03:40:12,573:	Found output_dir in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-27 03:40:12,573:	Removing output_dir from options
+DEBUG CLI 2026-03-27 03:40:12,573:	Adding param_log_file to new options
+DEBUG CLI 2026-03-27 03:40:12,573:	Adding data_format to new options
+DEBUG CLI 2026-03-27 03:40:12,573:	Adding input_supp_data_dir to new options
+DEBUG CLI 2026-03-27 03:40:12,574:	Unique Options:
+[   {   'default': 'param_log_file.txt',
+        'help': 'Log of final parameters used for run. Saved in out_dir if '
+                'file name, can be an absolute path.',
+        'name': 'param_log_file',
+        'type': <class 'str'>},
+    {   'default': '.parquet',
+        'help': "File format to save the ML data file (e.g., '.pt', "
+                "'.tfrecords').",
+        'name': 'data_format',
+        'type': <class 'str'>},
+    {   'default': '==SUPPRESS==',
+        'help': 'Directory containing supplementary data in addition to '
+                'benchmark data (usually model-specific data).',
+        'name': 'input_supp_data_dir',
+        'type': <class 'str'>}]
+DEBUG CLI 2026-03-27 03:40:12,574:	Setting Group to <argparse._ArgumentGroup object at 0x7ecaded5fa80>
+DEBUG CLI 2026-03-27 03:40:12,574:	Setting Command Line Options
+DEBUG CLI 2026-03-27 03:40:12,574:	Group: Preprocess stage options
+DEBUG CLI 2026-03-27 03:40:12,574:	Adding x_data_dir to new options
+DEBUG CLI 2026-03-27 03:40:12,574:	Adding y_data_dir to new options
+DEBUG CLI 2026-03-27 03:40:12,574:	Adding splits_dir to new options
+DEBUG CLI 2026-03-27 03:40:12,574:	Adding train_split_file to new options
+DEBUG CLI 2026-03-27 03:40:12,574:	Adding val_split_file to new options
+DEBUG CLI 2026-03-27 03:40:12,574:	Adding test_split_file to new options
+DEBUG CLI 2026-03-27 03:40:12,575:	Unique Options:
+[   {   'default': 'x_data',
+        'help': 'Directory name that contains the files with features data (x '
+                'data).',
+        'name': 'x_data_dir',
+        'type': <class 'str'>},
+    {   'default': 'y_data',
+        'help': 'Directory name that contains the files with target data (y '
+                'data).',
+        'name': 'y_data_dir',
+        'type': <class 'str'>},
+    {   'default': 'splits',
+        'help': 'Directory name that contains files that store split ids of '
+                'the y data file.',
+        'name': 'splits_dir',
+        'type': <class 'str'>},
+    {   'default': 'CCLE_split_0_train.txt',
+        'help': 'The path to the file that contains the train split indices or '
+                "ids (e.g., 'CCLE_split_0_train.txt').",
+        'name': 'train_split_file',
+        'required': True,
+        'type': <class 'str'>},
+    {   'default': 'CCLE_split_0_val.txt',
+        'help': 'The path to the file that contains the validation split '
+                "indices or ids (e.g., 'CCLE_split_0_val.txt').",
+        'name': 'val_split_file',
+        'required': True,
+        'type': <class 'str'>},
+    {   'default': 'CCLE_split_0_test.txt',
+        'help': 'The path to the file that contains the test split indices or '
+                "ids (e.g., 'CCLE_split_0_test.txt').",
+        'name': 'test_split_file',
+        'required': True,
+        'type': <class 'str'>}]
+DEBUG CLI 2026-03-27 03:40:12,575:	Setting Group to <argparse._ArgumentGroup object at 0x7ecaded5fe10>
+DEBUG CLI 2026-03-27 03:40:12,575:	Setting Command Line Options
+DEBUG CLI 2026-03-27 03:40:12,575:	Group: Drug Response Prediction Preprocessing
+DEBUG CLI 2026-03-27 03:40:12,575:	Adding y_data_files to new options
+DEBUG CLI 2026-03-27 03:40:12,575:	Adding x_data_canc_files to new options
+DEBUG CLI 2026-03-27 03:40:12,575:	Adding x_data_drug_files to new options
+DEBUG CLI 2026-03-27 03:40:12,575:	Adding canc_col_name to new options
+DEBUG CLI 2026-03-27 03:40:12,575:	Adding drug_col_name to new options
+DEBUG CLI 2026-03-27 03:40:12,575:	Adding y_col_name to new options
+DEBUG CLI 2026-03-27 03:40:12,575:	Unique Options:
+[   {   'default': "[['response.tsv']]",
+        'help': 'List of files that contain the y (prediction variable) data. '
+                "Example: [['response.tsv']]",
+        'name': 'y_data_files',
+        'type': <class 'str'>},
+    {   'default': "[['cancer_gene_expression.tsv', ['Gene_Symbol']]]",
+        'help': 'List of files containing omics-related features and the '
+                'identifiers to use. Examples:\n'
+                "1) [['cancer_gene_expression.tsv', ['Gene_Symbol']]]\n"
+                "2) [['cancer_copy_number.tsv', ['Ensembl', 'Entrez']]].",
+        'name': 'x_data_canc_files',
+        'type': <class 'str'>},
+    {   'default': "[['drug_SMILES.tsv']]",
+        'help': 'List of files containing drug-related features. Examples:\n'
+                "1) [['drug_SMILES.tsv']]\n"
+                "2) [['drug_SMILES.tsv'], ['drug_ecfp4_nbits512.tsv']]",
+        'name': 'x_data_drug_files',
+        'type': <class 'str'>},
+    {   'default': 'improve_sample_id',
+        'help': 'Column name in the y (response) data file that contains the '
+                'cancer sample IDs.',
+        'name': 'canc_col_name',
+        'type': <class 'str'>},
+    {   'default': 'improve_chem_id',
+        'help': 'Column name in the y (response) data file that contains the '
+                'drug IDs.',
+        'name': 'drug_col_name',
+        'type': <class 'str'>},
+    {   'default': 'auc',
+        'help': 'Column name in the y data file (e.g., response.tsv), that '
+                'represents the target variable that the model predicts. In '
+                'drug response prediction problem it can be IC50, AUC, and '
+                'others.',
+        'name': 'y_col_name',
+        'type': <class 'str'>}]
+DEBUG CLI 2026-03-27 03:40:12,575:	Setting Group to <argparse._ArgumentGroup object at 0x7ecadea196d0>
+DEBUG CLI 2026-03-27 03:40:12,576:	Setting Command Line Options
+DEBUG CLI 2026-03-27 03:40:12,576:	Group: Additional Parameters options
+DEBUG CLI 2026-03-27 03:40:12,576:	Adding cuda_name to new options
+DEBUG CLI 2026-03-27 03:40:12,576:	Adding csa_outdir to new options
+DEBUG CLI 2026-03-27 03:40:12,576:	Adding source_datasets to new options
+DEBUG CLI 2026-03-27 03:40:12,576:	Adding target_datasets to new options
+DEBUG CLI 2026-03-27 03:40:12,576:	Adding split_nums to new options
+DEBUG CLI 2026-03-27 03:40:12,576:	Adding only_cross_study to new options
+DEBUG CLI 2026-03-27 03:40:12,576:	Adding model_name to new options
+DEBUG CLI 2026-03-27 03:40:12,576:	Adding epochs to new options
+DEBUG CLI 2026-03-27 03:40:12,576:	Adding uses_cuda_name to new options
+DEBUG CLI 2026-03-27 03:40:12,577:	Unique Options:
+[   {   'default': 'cuda:0',
+        'help': 'Cuda device name.',
+        'name': 'cuda_name',
+        'type': <class 'str'>},
+    {   'default': './run.csa.full',
+        'help': 'Outdir for workflow.',
+        'name': 'csa_outdir',
+        'type': <class 'str'>},
+    {   'default': ['CCLE'],
+        'help': 'source_datasets for cross study analysis',
+        'name': 'source_datasets',
+        'nargs': '+',
+        'type': <class 'str'>},
+    {   'default': ['CCLE', 'gCSI'],
+        'help': 'target_datasets for cross study analysis',
+        'name': 'target_datasets',
+        'nargs': '+',
+        'type': <class 'str'>},
+    {   'default': ['0'],
+        'help': 'Split of the source datasets for CSA',
+        'name': 'split_nums',
+        'nargs': '+',
+        'type': <class 'str'>},
+    {   'default': False,
+        'help': 'If only cross study analysis is needed',
+        'name': 'only_cross_study',
+        'type': <function str2bool at 0x7ecb5c6b0ae0>},
+    {   'default': 'graphdrp',
+        'help': 'Name of the deep learning model',
+        'name': 'model_name',
+        'type': <class 'str'>},
+    {   'default': 10,
+        'help': 'Number of epochs',
+        'name': 'epochs',
+        'type': <class 'int'>},
+    {   'default': True,
+        'help': "Change to false if the model doesn't have a cuda_name "
+                'parameter.',
+        'name': 'uses_cuda_name',
+        'type': <function str2bool at 0x7ecb5c6b0ae0>}]
+DEBUG CLI 2026-03-27 03:40:12,577:	Setting Group to <argparse._ArgumentGroup object at 0x7ecadedf7570>
+DEBUG CLI 2026-03-27 03:40:12,577:	Setting Command Line Options
+DEBUG CLI 2026-03-27 03:40:12,577:	Group: None
+WARNING CLI 2026-03-27 03:40:12,577:	Found log_level in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-27 03:40:12,577:	Removing log_level from options
+WARNING CLI 2026-03-27 03:40:12,577:	Found output_dir in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-27 03:40:12,577:	Removing output_dir from options
+WARNING CLI 2026-03-27 03:40:12,577:	Found param_log_file in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-27 03:40:12,577:	Removing param_log_file from options
+WARNING CLI 2026-03-27 03:40:12,577:	Found input_supp_data_dir in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-27 03:40:12,577:	Removing input_supp_data_dir from options
+WARNING CLI 2026-03-27 03:40:12,577:	Found y_data_dir in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-27 03:40:12,577:	Removing y_data_dir from options
+WARNING CLI 2026-03-27 03:40:12,577:	Found train_split_file in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-27 03:40:12,577:	Removing train_split_file from options
+WARNING CLI 2026-03-27 03:40:12,577:	Found test_split_file in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-27 03:40:12,577:	Removing test_split_file from options
+WARNING CLI 2026-03-27 03:40:12,577:	Found csa_outdir in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-27 03:40:12,577:	Removing csa_outdir from options
+WARNING CLI 2026-03-27 03:40:12,577:	Found target_datasets in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-27 03:40:12,577:	Removing target_datasets from options
+WARNING CLI 2026-03-27 03:40:12,578:	Found only_cross_study in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-27 03:40:12,578:	Removing only_cross_study from options
+WARNING CLI 2026-03-27 03:40:12,578:	Found epochs in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-27 03:40:12,578:	Removing epochs from options
+DEBUG CLI 2026-03-27 03:40:12,578:	Unique Options:
+[]
+WARNING Preprocess 2026-03-27 03:40:12,578:	Option help is missing required keys.
+WARNING Preprocess 2026-03-27 03:40:12,578:	Option input_dir is missing required keys.
+WARNING Preprocess 2026-03-27 03:40:12,578:	Option output_dir is missing required keys.
+WARNING Preprocess 2026-03-27 03:40:12,578:	Option log_level is missing required keys.
+WARNING Preprocess 2026-03-27 03:40:12,578:	Option config_file is missing required keys.
+WARNING Preprocess 2026-03-27 03:40:12,578:	Option param_log_file is missing required keys.
+WARNING Preprocess 2026-03-27 03:40:12,578:	Option data_format is missing required keys.
+WARNING Preprocess 2026-03-27 03:40:12,578:	Option input_supp_data_dir is missing required keys.
+WARNING Preprocess 2026-03-27 03:40:12,578:	Option x_data_dir is missing required keys.
+WARNING Preprocess 2026-03-27 03:40:12,578:	Option y_data_dir is missing required keys.
+WARNING Preprocess 2026-03-27 03:40:12,578:	Option splits_dir is missing required keys.
+WARNING Preprocess 2026-03-27 03:40:12,578:	Option train_split_file is missing required keys.
+WARNING Preprocess 2026-03-27 03:40:12,578:	Option val_split_file is missing required keys.
+WARNING Preprocess 2026-03-27 03:40:12,578:	Option test_split_file is missing required keys.
+WARNING Preprocess 2026-03-27 03:40:12,578:	Option y_data_files is missing required keys.
+WARNING Preprocess 2026-03-27 03:40:12,578:	Option x_data_canc_files is missing required keys.
+WARNING Preprocess 2026-03-27 03:40:12,578:	Option x_data_drug_files is missing required keys.
+WARNING Preprocess 2026-03-27 03:40:12,578:	Option canc_col_name is missing required keys.
+WARNING Preprocess 2026-03-27 03:40:12,578:	Option drug_col_name is missing required keys.
+WARNING Preprocess 2026-03-27 03:40:12,578:	Option y_col_name is missing required keys.
+WARNING Preprocess 2026-03-27 03:40:12,578:	Option cuda_name is missing required keys.
+WARNING Preprocess 2026-03-27 03:40:12,578:	Option csa_outdir is missing required keys.
+WARNING Preprocess 2026-03-27 03:40:12,578:	Option source_datasets is missing required keys.
+WARNING Preprocess 2026-03-27 03:40:12,578:	Option target_datasets is missing required keys.
+WARNING Preprocess 2026-03-27 03:40:12,578:	Option split_nums is missing required keys.
+WARNING Preprocess 2026-03-27 03:40:12,578:	Option only_cross_study is missing required keys.
+WARNING Preprocess 2026-03-27 03:40:12,578:	Option model_name is missing required keys.
+WARNING Preprocess 2026-03-27 03:40:12,578:	Option epochs is missing required keys.
+WARNING Preprocess 2026-03-27 03:40:12,578:	Option uses_cuda_name is missing required keys.
+DEBUG CLI 2026-03-27 03:40:12,578:	Setting Command Line Options
+DEBUG CLI 2026-03-27 03:40:12,578:	Group: None
+WARNING CLI 2026-03-27 03:40:12,578:	Found log_level in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-27 03:40:12,579:	Removing log_level from options
+WARNING CLI 2026-03-27 03:40:12,579:	Found output_dir in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-27 03:40:12,579:	Removing output_dir from options
+WARNING CLI 2026-03-27 03:40:12,579:	Found param_log_file in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-27 03:40:12,579:	Removing param_log_file from options
+WARNING CLI 2026-03-27 03:40:12,579:	Found input_supp_data_dir in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-27 03:40:12,579:	Removing input_supp_data_dir from options
+WARNING CLI 2026-03-27 03:40:12,579:	Found y_data_dir in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-27 03:40:12,579:	Removing y_data_dir from options
+WARNING CLI 2026-03-27 03:40:12,579:	Found train_split_file in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-27 03:40:12,579:	Removing train_split_file from options
+WARNING CLI 2026-03-27 03:40:12,579:	Found test_split_file in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-27 03:40:12,579:	Removing test_split_file from options
+WARNING CLI 2026-03-27 03:40:12,579:	Found csa_outdir in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-27 03:40:12,579:	Removing csa_outdir from options
+WARNING CLI 2026-03-27 03:40:12,579:	Found target_datasets in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-27 03:40:12,579:	Removing target_datasets from options
+WARNING CLI 2026-03-27 03:40:12,579:	Found only_cross_study in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-27 03:40:12,579:	Removing only_cross_study from options
+WARNING CLI 2026-03-27 03:40:12,579:	Found epochs in options. This option is predefined and cannot be overwritten.
+DEBUG CLI 2026-03-27 03:40:12,579:	Removing epochs from options
+DEBUG CLI 2026-03-27 03:40:12,579:	Unique Options:
+[]
+ERROR Preprocess 2026-03-27 03:40:12,579:	Option help is already defined. Skipping.
+ERROR Preprocess 2026-03-27 03:40:12,579:	Failed to add option: help
+DEBUG CLI 2026-03-27 03:40:12,579:	Getting the config file from the command line.
+DEBUG CLI 2026-03-27 03:40:12,579:	Config file: None
+INFO Preprocess 2026-03-27 03:40:12,579:	Loading config from /mnt/nvme0/home/nguyenthaikhanh/kh/GraphDRP/csa_bruteforce_params.ini
+ERROR Preprocess 2026-03-27 03:40:12,580:	Unsupported type <function str2bool at 0x7ecb5c6b0ae0> for key only_cross_study
+ERROR Preprocess 2026-03-27 03:40:12,580:	Unsupported type <function str2bool at 0x7ecb5c6b0ae0> for key uses_cuda_name
+DEBUG CLI 2026-03-27 03:40:12,580:	Getting Command Line Options
+File path: /mnt/nvme0/home/nguyenthaikhanh/kh/GraphDRP
+Loaded params
+Created script names.
+Created directory names.
+MAIN_CSA_OUTDIR:   bruteforce_csa_full_scale
+MAIN_ML_DATA_DIR:  bruteforce_csa_full_scale/ml_data
+MAIN_MODEL_DIR:    bruteforce_csa_full_scale/models
+MAIN_INFER_DIR:    bruteforce_csa_full_scale/infer
+Created splits path.
+splits_dir:  csa_data/raw_data/splits
+internal params
+
+source_datasets: ['CCLE', 'gCSI']
+target_datasets: ['CCLE', 'gCSI']
+split_nums:      ['0', '1', '2', '3', '4']
+Split id 0 out of 5 splits.
+
+Source data: CCLE
+Target data: CCLE
+
+Preprocessing
+train_split_file: CCLE_split_0_train.txt
+val_split_file:   CCLE_split_0_val.txt
+test_split_file:  CCLE_split_0_test.txt
+returncode = 0
+Elapsed Time: 00:06:39.441389322280884
+
+Train
+ml_data_dir: bruteforce_csa_full_scale/ml_data/CCLE-CCLE/split_0
+model_dir:   bruteforce_csa_full_scale/models/CCLE/split_0
+returncode = 0
+Elapsed Time: 00:02:36.46733045578003
+
+Infer
+returncode = 0
+Elapsed Time: 00:00:6.6757285594940186
+
+Source data: CCLE
+Target data: gCSI
+
+Preprocessing
+train_split_file: CCLE_split_0_train.txt
+val_split_file:   CCLE_split_0_val.txt
+test_split_file:  gCSI_all.txt
+returncode = 0
+Elapsed Time: 00:09:29.48939347267151
+
+Infer
+returncode = 0
+Elapsed Time: 00:00:7.882524728775024
+Split id 1 out of 5 splits.
+
+Source data: CCLE
+Target data: CCLE
+
+Preprocessing
+train_split_file: CCLE_split_1_train.txt
+val_split_file:   CCLE_split_1_val.txt
+test_split_file:  CCLE_split_1_test.txt
+returncode = 0
+Elapsed Time: 00:06:38.39465641975403
+
+Train
+ml_data_dir: bruteforce_csa_full_scale/ml_data/CCLE-CCLE/split_1
+model_dir:   bruteforce_csa_full_scale/models/CCLE/split_1
+returncode = 0
+Elapsed Time: 00:02:49.17708420753479
+
+Infer
+returncode = 0
+Elapsed Time: 00:00:6.597696304321289
+
+Source data: CCLE
+Target data: gCSI
+
+Preprocessing
+train_split_file: CCLE_split_1_train.txt
+val_split_file:   CCLE_split_1_val.txt
+test_split_file:  gCSI_all.txt
+returncode = 0
+Elapsed Time: 00:09:43.37972903251648
+
+Infer
+returncode = 0
+Elapsed Time: 00:00:7.884725093841553
+Split id 2 out of 5 splits.
+
+Source data: CCLE
+Target data: CCLE
+
+Preprocessing
+train_split_file: CCLE_split_2_train.txt
+val_split_file:   CCLE_split_2_val.txt
+test_split_file:  CCLE_split_2_test.txt
+returncode = 0
+Elapsed Time: 00:06:33.16965889930725
+
+Train
+ml_data_dir: bruteforce_csa_full_scale/ml_data/CCLE-CCLE/split_2
+model_dir:   bruteforce_csa_full_scale/models/CCLE/split_2
+returncode = 0
+Elapsed Time: 00:03:24.754568338394165
+
+Infer
+returncode = 0
+Elapsed Time: 00:00:6.745553731918335
+
+Source data: CCLE
+Target data: gCSI
+
+Preprocessing
+train_split_file: CCLE_split_2_train.txt
+val_split_file:   CCLE_split_2_val.txt
+test_split_file:  gCSI_all.txt
+returncode = 0
+Elapsed Time: 00:09:9.066136360168457
+
+Infer
+returncode = 0
+Elapsed Time: 00:00:8.094993591308594
+Split id 3 out of 5 splits.
+
+Source data: CCLE
+Target data: CCLE
+
+Preprocessing
+train_split_file: CCLE_split_3_train.txt
+val_split_file:   CCLE_split_3_val.txt
+test_split_file:  CCLE_split_3_test.txt
+returncode = 0
+Elapsed Time: 00:06:34.31497049331665
+
+Train
+ml_data_dir: bruteforce_csa_full_scale/ml_data/CCLE-CCLE/split_3
+model_dir:   bruteforce_csa_full_scale/models/CCLE/split_3
+returncode = 0
+Elapsed Time: 00:03:4.031697988510132
+
+Infer
+returncode = 0
+Elapsed Time: 00:00:6.2952964305877686
+
+Source data: CCLE
+Target data: gCSI
+
+Preprocessing
+train_split_file: CCLE_split_3_train.txt
+val_split_file:   CCLE_split_3_val.txt
+test_split_file:  gCSI_all.txt
+returncode = 0
+Elapsed Time: 00:09:12.021876573562622
+
+Infer
+returncode = 0
+Elapsed Time: 00:00:6.386512041091919
+Split id 4 out of 5 splits.
+
+Source data: CCLE
+Target data: CCLE
+
+Preprocessing
+train_split_file: CCLE_split_4_train.txt
+val_split_file:   CCLE_split_4_val.txt
+test_split_file:  CCLE_split_4_test.txt
+returncode = 0
+Elapsed Time: 00:06:26.190162181854248
+
+Train
+ml_data_dir: bruteforce_csa_full_scale/ml_data/CCLE-CCLE/split_4
+model_dir:   bruteforce_csa_full_scale/models/CCLE/split_4
+returncode = 0
+Elapsed Time: 00:02:49.16023635864258
+
+Infer
+returncode = 0
+Elapsed Time: 00:00:6.388409376144409
+
+Source data: CCLE
+Target data: gCSI
+
+Preprocessing
+train_split_file: CCLE_split_4_train.txt
+val_split_file:   CCLE_split_4_val.txt
+test_split_file:  gCSI_all.txt
+returncode = 0
+Elapsed Time: 00:09:33.49875545501709
+
+Infer
+returncode = 0
+Elapsed Time: 00:00:6.502140522003174
+Split id 0 out of 5 splits.
+
+Source data: gCSI
+Target data: CCLE
+
+Preprocessing
+train_split_file: gCSI_split_0_train.txt
+val_split_file:   gCSI_split_0_val.txt
+test_split_file:  CCLE_all.txt
+returncode = 0
+Elapsed Time: 00:09:52.250221967697144
+
+Train
+ml_data_dir: bruteforce_csa_full_scale/ml_data/gCSI-CCLE/split_0
+model_dir:   bruteforce_csa_full_scale/models/gCSI/split_0
+returncode = 0
+Elapsed Time: 00:01:47.4651517868042
+
+Infer
+returncode = 0
+Elapsed Time: 00:00:9.252155780792236
+
+Source data: gCSI
+Target data: gCSI
+
+Preprocessing
+train_split_file: gCSI_split_0_train.txt
+val_split_file:   gCSI_split_0_val.txt
+test_split_file:  gCSI_split_0_test.txt
+returncode = 0
+Elapsed Time: 00:03:56.90263271331787
+
+Infer
+returncode = 0
+Elapsed Time: 00:00:6.606901168823242
+Split id 1 out of 5 splits.
+
+Source data: gCSI
+Target data: CCLE
+
+Preprocessing
+train_split_file: gCSI_split_1_train.txt
+val_split_file:   gCSI_split_1_val.txt
+test_split_file:  CCLE_all.txt
+returncode = 0
+Elapsed Time: 00:09:51.75750684738159
+
+Train
+ml_data_dir: bruteforce_csa_full_scale/ml_data/gCSI-CCLE/split_1
+model_dir:   bruteforce_csa_full_scale/models/gCSI/split_1
+returncode = 0
+Elapsed Time: 00:01:53.5685670375824
+
+Infer
+returncode = 0
+Elapsed Time: 00:00:9.200160503387451
+
+Source data: gCSI
+Target data: gCSI
+
+Preprocessing
+train_split_file: gCSI_split_1_train.txt
+val_split_file:   gCSI_split_1_val.txt
+test_split_file:  gCSI_split_1_test.txt
+returncode = 0
+Elapsed Time: 00:03:53.693650245666504
+
+Infer
+returncode = 0
+Elapsed Time: 00:00:6.672108173370361
+Split id 2 out of 5 splits.
+
+Source data: gCSI
+Target data: CCLE
+
+Preprocessing
+train_split_file: gCSI_split_2_train.txt
+val_split_file:   gCSI_split_2_val.txt
+test_split_file:  CCLE_all.txt
+returncode = 0
+Elapsed Time: 00:09:49.13756275177002
+
+Train
+ml_data_dir: bruteforce_csa_full_scale/ml_data/gCSI-CCLE/split_2
+model_dir:   bruteforce_csa_full_scale/models/gCSI/split_2
+returncode = 0
+Elapsed Time: 00:01:39.12229585647583
+
+Infer
+returncode = 0
+Elapsed Time: 00:00:8.860568761825562
+
+Source data: gCSI
+Target data: gCSI
+
+Preprocessing
+train_split_file: gCSI_split_2_train.txt
+val_split_file:   gCSI_split_2_val.txt
+test_split_file:  gCSI_split_2_test.txt
+returncode = 0
+Elapsed Time: 00:03:56.09047269821167
+
+Infer
+returncode = 0
+Elapsed Time: 00:00:6.687420845031738
+Split id 3 out of 5 splits.
+
+Source data: gCSI
+Target data: CCLE
+
+Preprocessing
+train_split_file: gCSI_split_3_train.txt
+val_split_file:   gCSI_split_3_val.txt
+test_split_file:  CCLE_all.txt
+returncode = 0
+Elapsed Time: 00:09:52.934417963027954
+
+Train
+ml_data_dir: bruteforce_csa_full_scale/ml_data/gCSI-CCLE/split_3
+model_dir:   bruteforce_csa_full_scale/models/gCSI/split_3
+returncode = 0
+Elapsed Time: 00:01:13.69913625717163
+
+Infer
+returncode = 0
+Elapsed Time: 00:00:8.488477945327759
+
+Source data: gCSI
+Target data: gCSI
+
+Preprocessing
+train_split_file: gCSI_split_3_train.txt
+val_split_file:   gCSI_split_3_val.txt
+test_split_file:  gCSI_split_3_test.txt
+returncode = 0
+Elapsed Time: 00:03:53.886067390441895
+
+Infer
+returncode = 0
+Elapsed Time: 00:00:6.56111741065979
+Split id 4 out of 5 splits.
+
+Source data: gCSI
+Target data: CCLE
+
+Preprocessing
+train_split_file: gCSI_split_4_train.txt
+val_split_file:   gCSI_split_4_val.txt
+test_split_file:  CCLE_all.txt
+returncode = 0
+Elapsed Time: 00:09:54.99685215950012
+
+Train
+ml_data_dir: bruteforce_csa_full_scale/ml_data/gCSI-CCLE/split_4
+model_dir:   bruteforce_csa_full_scale/models/gCSI/split_4
+returncode = 0
+Elapsed Time: 00:01:9.653077602386475
+
+Infer
+returncode = 0
+Elapsed Time: 00:00:9.093000650405884
+
+Source data: gCSI
+Target data: gCSI
+
+Preprocessing
+train_split_file: gCSI_split_4_train.txt
+val_split_file:   gCSI_split_4_val.txt
+test_split_file:  gCSI_split_4_test.txt
+returncode = 0
+Elapsed Time: 00:03:59.51128101348877
+
+Infer
+returncode = 0
+Elapsed Time: 00:00:6.5585644245147705
+
+Finished full cross-study run.
+Elapsed Time: 02:53:54.68628978729248

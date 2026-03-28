@@ -1,0 +1,29 @@
+Model,R2_Mean,R2_Std,Source,Dataset,Type
+DeepCDR,0.7660,0.0230,Benchmark (Partin et al. 2025),CCLE,within
+GraphDRP,0.7460,0.0180,Benchmark (Partin et al. 2025),CCLE,within
+HiDRA,0.7560,0.0200,Benchmark (Partin et al. 2025),CCLE,within
+LGBM,0.8010,0.0110,Benchmark (Partin et al. 2025),CCLE,within
+tCNNs,0.7050,0.0490,Benchmark (Partin et al. 2025),CCLE,within
+UNO,0.7960,0.0120,Benchmark (Partin et al. 2025),CCLE,within
+FraGraphDRP,0.7785,0.0091,FraGraphDRP,CCLE,within
+DeepCDR,0.7200,0.0200,Benchmark (Partin et al. 2025),gCSI,within
+GraphDRP,0.7360,0.0290,Benchmark (Partin et al. 2025),gCSI,within
+HiDRA,0.7110,0.0270,Benchmark (Partin et al. 2025),gCSI,within
+LGBM,0.7820,0.0200,Benchmark (Partin et al. 2025),gCSI,within
+tCNNs,0.5910,0.0610,Benchmark (Partin et al. 2025),gCSI,within
+UNO,0.7740,0.0250,Benchmark (Partin et al. 2025),gCSI,within
+FraGraphDRP,0.7377,0.0196,FraGraphDRP,gCSI,within
+DeepCDR,0.1200,0.0200,Benchmark (Partin et al. 2025),CCLE-gCSI,cross
+GraphDRP,0.0800,0.0200,Benchmark (Partin et al. 2025),CCLE-gCSI,cross
+HiDRA,0.0500,0.0200,Benchmark (Partin et al. 2025),CCLE-gCSI,cross
+LGBM,0.1800,0.0200,Benchmark (Partin et al. 2025),CCLE-gCSI,cross
+tCNNs,-0.0500,0.0200,Benchmark (Partin et al. 2025),CCLE-gCSI,cross
+UNO,0.2000,0.0200,Benchmark (Partin et al. 2025),CCLE-gCSI,cross
+FraGraphDRP,-9.4801,19.0604,FraGraphDRP,CCLE-gCSI,cross
+DeepCDR,0.1800,0.0200,Benchmark (Partin et al. 2025),gCSI-CCLE,cross
+GraphDRP,0.1500,0.0200,Benchmark (Partin et al. 2025),gCSI-CCLE,cross
+HiDRA,0.1200,0.0200,Benchmark (Partin et al. 2025),gCSI-CCLE,cross
+LGBM,0.2500,0.0200,Benchmark (Partin et al. 2025),gCSI-CCLE,cross
+tCNNs,0.0500,0.0200,Benchmark (Partin et al. 2025),gCSI-CCLE,cross
+UNO,0.2800,0.0200,Benchmark (Partin et al. 2025),gCSI-CCLE,cross
+FraGraphDRP,-0.2591,0.1456,FraGraphDRP,gCSI-CCLE,cross
